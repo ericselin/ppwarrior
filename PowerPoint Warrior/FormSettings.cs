@@ -14,6 +14,7 @@ namespace PowerPoint_Warrior
             InitializeComponent();
             chkLogging.Checked = Properties.Settings.Default.EnableLogging;
             tbEmail.Text = Properties.Settings.Default.UserEmail;
+            tbEmail.Focus();
         }
 
         private void btnOk_Click(object sender, EventArgs e)

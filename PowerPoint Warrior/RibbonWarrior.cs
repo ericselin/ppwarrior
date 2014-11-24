@@ -405,8 +405,6 @@ namespace PowerPoint_Warrior
 
                 // validate license again, since it might have been updated
                 checkLicense();
-                // re-evaluate which buttons to show, since license may have been updated
-                Application_WindowSelectionChange(Globals.ThisAddIn.Application.ActiveWindow.Selection);
 
                 // If this was called from code, assume it was the initial e-mail prompt
                 if (sender == null)
@@ -416,6 +414,8 @@ namespace PowerPoint_Warrior
                 else
                 {
                     logUsage(sender, e);
+                    // re-evaluate which buttons to show, since license may have been updated
+                    Application_WindowSelectionChange(Globals.ThisAddIn.Application.ActiveWindow.Selection);
                 }
             }
             catch (Exception ex)
