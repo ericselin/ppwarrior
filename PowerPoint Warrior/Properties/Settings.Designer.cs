@@ -46,5 +46,28 @@ namespace PowerPoint_Warrior.Properties {
                 this["UserEmail"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UserLicense {
+            get {
+                return ((string)(this["UserLicense"]));
+            }
+            set {
+                this["UserLicense"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime TrialExpires {
+            get {
+                return ((global::System.DateTime)(this["TrialExpires"]));
+            }
+            set {
+                this["TrialExpires"] = value;
+            }
+        }
     }
 }

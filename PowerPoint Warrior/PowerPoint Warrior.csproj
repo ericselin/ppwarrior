@@ -34,7 +34,7 @@
     <PublishUrl>C:\Users\eseli\Source\Publish\PowerPoint Warrior\</PublishUrl>
     <InstallUrl>https://ppwarrior.blob.core.windows.net/install/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.1.0.6</ApplicationVersion>
+    <ApplicationVersion>1.2.0.2</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -192,6 +192,7 @@
     </Compile>
     <Compile Include="ToolsAndFormatting.cs" />
     <Compile Include="ToolsCommon.cs" />
+    <Compile Include="ToolsGuidelines.cs" />
     <Compile Include="ToolsSelection.cs" />
     <Compile Include="ToolsSizeAndPosition.cs" />
     <EmbeddedResource Include="FormSettings.resx">
@@ -253,6 +254,24 @@
       <Project>{d08afa60-a950-4236-b1a8-f1ad7e2cad8f}</Project>
       <Name>Warrior Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonFormatBulletList.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonLineBelow.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonSetLanguageEnglish.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonSetLanguageFinnsh.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toggleWordwrap.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconHeaderLine.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

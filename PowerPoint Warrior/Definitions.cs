@@ -5,6 +5,11 @@ using System.Text;
 
 namespace PowerPoint_Warrior
 {
+    enum Edition
+    {
+        Trial, Free, Starter, Premium, Corporate
+    }
+
     // Create the selection struct
     public struct SelectionType
     {
@@ -19,11 +24,13 @@ namespace PowerPoint_Warrior
         // Text inside a table
         TableText,
         // One table
-        TableOne;
+        TableOne,
+        // Show if valid
+        Valid;
         // Set all as false
         public void SetAllFalse()
         {
-            ShapesOne = ShapesTwo = ShapesMoreThanOne = ShapesOrText = TableText = TableOne = false;
+            ShapesOne = ShapesTwo = ShapesMoreThanOne = ShapesOrText = TableText = TableOne = Valid = false;
         }
     };
 

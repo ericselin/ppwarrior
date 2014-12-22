@@ -38,6 +38,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.errorpSettings = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblTrialExpires = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorpSettings)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,7 +49,7 @@
             this.chkLogging.Checked = true;
             this.chkLogging.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLogging.Enabled = false;
-            this.chkLogging.Location = new System.Drawing.Point(18, 227);
+            this.chkLogging.Location = new System.Drawing.Point(18, 216);
             this.chkLogging.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkLogging.Name = "chkLogging";
             this.chkLogging.Size = new System.Drawing.Size(315, 24);
@@ -58,17 +60,17 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(14, 260);
+            this.label1.Location = new System.Drawing.Point(18, 245);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(369, 76);
+            this.label1.Size = new System.Drawing.Size(397, 54);
             this.label1.TabIndex = 1;
             this.label1.Text = "Anonymous usage logging is enabled by default in this version, this is very impor" +
-    "tant for the development of this add-in.";
+    "tant for development.";
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(142, 346);
+            this.btnOk.Location = new System.Drawing.Point(145, 355);
             this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(112, 35);
@@ -132,12 +134,32 @@
             // 
             this.errorpSettings.ContainerControl = this;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 309);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(179, 20);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "This trial version expires:";
+            // 
+            // lblTrialExpires
+            // 
+            this.lblTrialExpires.AutoSize = true;
+            this.lblTrialExpires.Location = new System.Drawing.Point(200, 309);
+            this.lblTrialExpires.Name = "lblTrialExpires";
+            this.lblTrialExpires.Size = new System.Drawing.Size(21, 20);
+            this.lblTrialExpires.TabIndex = 9;
+            this.lblTrialExpires.Text = "...";
+            // 
             // FormSettings
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 404);
+            this.ClientSize = new System.Drawing.Size(472, 411);
+            this.Controls.Add(this.lblTrialExpires);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbEmail);
@@ -170,5 +192,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ErrorProvider errorpSettings;
+        private System.Windows.Forms.Label lblTrialExpires;
+        private System.Windows.Forms.Label label6;
     }
 }

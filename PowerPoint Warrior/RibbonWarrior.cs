@@ -13,8 +13,11 @@ namespace PowerPoint_Warrior
         Style_Manager.StyleLogic styles;
         string officeVersion;
         string userEmail;
+        Edition userEdition;
         UsageLogger logger;
         bool licenseValid;
+        // position used by pick up / apply pos.
+        PowerPointPosition position;
 
         private void RibbonWarrior_Load(object sender, RibbonUIEventArgs e)
         {
@@ -24,14 +27,14 @@ namespace PowerPoint_Warrior
                 officeVersion = Globals.ThisAddIn.Application.Version;
                 if (float.Parse(officeVersion, System.Globalization.CultureInfo.InvariantCulture) >= 15)
                     tabWarrior.Label = tabWarrior.Label.ToUpper();
-                // set user email
+                // set user email and license
                 userEmail = Properties.Settings.Default.UserEmail;
                 // create logger instance
                 logger = new UsageLogger(officeVersion, userEmail);
-                // Check license (still 2014 and e-mail inserted) - disables controls if not valid
+                // Check license (valid edition and e-mail inserted) - disables controls if not valid
                 checkLicense();
-                // if license invalid, show settings box
-                if (!licenseValid)
+                // if no e-mail, show settings box
+                if (string.IsNullOrEmpty(userEmail))
                     btnAbout_Click(null, null);
                 // track statup
                 logger.PostUsage("Powerpoint started", null);
@@ -49,31 +52,21 @@ namespace PowerPoint_Warrior
         }
 
         /// <summary>
-        /// Checks whether userEmail variable is set. If not, shows settings dialog.
-        /// Also checks for year (currently only able to run the toolbar in 2014).
-        /// Will wet controls to inactive if license not valid
+        /// Checks whether email inserted and trial valid
+        /// Will set controls to inactive if license not valid
         /// </summary>
-        /// <returns>"License" validity</returns>
         private void checkLicense()
         {
-            // if we are in 2015, this version is no logner valid
-            if (DateTime.Now.Year > 2014)
+            // if trial date does not exist, set it 30 days from now
+            if (Properties.Settings.Default.TrialExpires == DateTime.MinValue)
             {
-                MessageBox.Show("You are using an outdated version of the PowerPoint Warrior.\n" +
-                    "Please unistall the current version from \"Programs and Features\" in the Windows Control Panel " +
-                    "and visit www.ppwarrior.com for a new version!");
-                logger.PostUsage("Tried to load 2014 version");
-                licenseValid = false;
+                Properties.Settings.Default.TrialExpires = DateTimeOffset.Now.AddDays(30).DateTime;
             }
-            // Check that we have an e-mail
-            else if (string.IsNullOrEmpty(userEmail))
-            {
-                licenseValid = false;
-            }
-            else
-            {
-                licenseValid = true;
-            }
+            // license is valid if we have an e-mail AND trial is still valid
+            licenseValid = !string.IsNullOrEmpty(userEmail) &&
+                Properties.Settings.Default.TrialExpires > DateTime.Now;
+            // set the correct edition
+            userEdition = Edition.Trial;
         }
 
         private void Application_WindowSelectionChange(PowerPoint.Selection Sel)
@@ -114,6 +107,8 @@ namespace PowerPoint_Warrior
                         Sel.Type == PowerPoint.PpSelectionType.ppSelectionText) &&
                         Sel.ShapeRange.Count == 1 &&
                         Sel.ShapeRange[1].HasTable == Office.MsoTriState.msoTrue;
+                    // Set always available buttons to enabled
+                    selection.Valid = true;
 
                     // Only do the icon and checked at this point
                     checkSelectionBoxes(Globals.ThisAddIn.Application.ActiveWindow.Selection); 
@@ -124,22 +119,32 @@ namespace PowerPoint_Warrior
                 }
 
                 // These when on one shape or text (i.e. one shape)
-                //button.Enabled = selection.ShapesOne;
+                btnApplyPosition.Enabled = selection.ShapesOne && position != null;
+                btnPickUpPosition.Enabled = selection.ShapesOne;
+                gallerySelectSimilar.Enabled = selection.ShapesOne;
+                btnSplitShape.Enabled = selection.ShapesOne;
                 // These when one shape or text OR two shapes
-                //button.Enabled = selection.ShapesOne || selection.ShapesTwo;
+                btnHeaderLine.Enabled = selection.ShapesOne || selection.ShapesTwo;
                 // These when more than one shape
                 btnSameHeight.Enabled = selection.ShapesMoreThanOne;
                 btnSameWidth.Enabled = selection.ShapesMoreThanOne;
+                galleryAlign.Enabled = selection.ShapesMoreThanOne;
                 // These when exactly 2 shapes
                 btnSwapPos.Enabled = selection.ShapesTwo;
                 // These when shapes or text (text implicitly means one shape)
                 toggleAutoFit.Enabled = selection.ShapesOrText;
                 toggleWordWrap.Enabled = selection.ShapesOrText;
                 galleryStyles.Enabled = selection.ShapesOrText;
+                btnLineBelow.Enabled = selection.ShapesOrText;
+                btnFormatBullets.Enabled = selection.ShapesOrText;
+                btnRemoveEffects.Enabled = selection.ShapesOrText;
                 // These when text in a table (i.e. one cell)
                 btnPasteFromExcel.Enabled = selection.TableText;
                 // These when one table
-                //buttonFormatTable.Enabled = selection.TableOne;
+                btnFormatTable.Enabled = selection.TableOne;
+                // These are always shown, except for when license invalid
+                menuSetLanguage.Enabled = selection.Valid;
+                editBoxGoToSlide.Enabled = selection.Valid;
             }
             catch (Exception ex)
             {
@@ -446,6 +451,235 @@ namespace PowerPoint_Warrior
             catch (Exception ex)
             {
                 Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnRemoveEffects_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
+                ToolsAndFormatting.RemoveEffects(selection);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnLineBelow_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.DocumentWindow window = Globals.ThisAddIn.Application.ActiveWindow;
+                ToolsAndFormatting.LineBelow(window);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnFormatBullets_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
+                ToolsAndFormatting.FormatBullets(selection);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnFormatTable_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Table pptTable = Globals.ThisAddIn.Application.ActiveWindow.Selection.ShapeRange[1].Table;
+                ToolsAndFormatting.FormatTable(pptTable);
+
+                logUsage(sender, e);
+
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnSetLanguage_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                if (e.Control.Id == btnSetLanguageEnglish.Id)
+                    ToolsAndFormatting.SetLanguage(Globals.ThisAddIn.Application.ActivePresentation.Slides, Office.MsoLanguageID.msoLanguageIDEnglishUS);
+                else if (e.Control.Id == btnSetLanguageFinnsh.Id)
+                    ToolsAndFormatting.SetLanguage(Globals.ThisAddIn.Application.ActivePresentation.Slides, Office.MsoLanguageID.msoLanguageIDFinnish);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void gallerySelectSimilar_ButtonClick(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
+                SelectSimilarTypes selectType;
+
+                if (e.Control.Id == buttonSelectSimilarColorLine.Id)
+                {
+                    selectType = SelectSimilarTypes.SelectSimilarColorLine;
+                }
+                else if (e.Control.Id == buttonSelectSimilarColor.Id)
+                {
+                    selectType = SelectSimilarTypes.SelectSimilarColor;
+                }
+                else if (e.Control.Id == buttonSelectSimilarLine.Id)
+                {
+                    selectType = SelectSimilarTypes.SelectSimilarLine;
+                }
+                else if (e.Control.Id == buttonSelectSimilarHeight.Id)
+                {
+                    selectType = SelectSimilarTypes.SelectSimilarHeight;
+                }
+                else if (e.Control.Id == buttonSelectSimilarWidth.Id)
+                {
+                    selectType = SelectSimilarTypes.SelectSimilarWidth;
+                }
+                else if (e.Control.Id == buttonSelectSimilarHorizontal.Id)
+                {
+                    selectType = SelectSimilarTypes.SelectSimilarHorizontal;
+                }
+                else if (e.Control.Id == buttonSelectSimilarVertical.Id)
+                {
+                    selectType = SelectSimilarTypes.SelectSimilarVertical;
+                }
+                else
+                    return;
+
+                ToolsSelection.SelectSimilar(selection, selectType);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void galleryAlign_ButtonClick(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
+                TopOrLeft topLeft;
+
+                if (e.Control.Id == buttonAlignLeftToRight.Id)
+                    topLeft = TopOrLeft.Left;
+                else if (e.Control.Id == buttonAlignTopToBottom.Id)
+                    topLeft = TopOrLeft.Top;
+                else
+                    return;
+
+                ToolsSizeAndPosition.AlignTopToBottom(selection, topLeft);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnPickUpPosition_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
+                position = ToolsSizeAndPosition.PickUpPosition(selection);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnApplyPosition_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
+                ToolsSizeAndPosition.ApplyPosition(selection, position);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnSplitShape_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
+                ToolsSizeAndPosition.SplitObject(selection);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void editBoxGoToSlide_TextChanged(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.View view = Globals.ThisAddIn.Application.ActiveWindow.View;
+                string slideNumberString = editBoxGoToSlide.Text;
+                ToolsSelection.GoToSlide(view, slideNumberString);
+
+                editBoxGoToSlide.Text = "";
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnHeaderLine_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.DocumentWindow window = Globals.ThisAddIn.Application.ActiveWindow;
+
+                ToolsGuidelines.HeaderLine(window);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
     }

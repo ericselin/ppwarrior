@@ -63,6 +63,36 @@ namespace PowerPoint_Warrior.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconFormatBulletList {
+            get {
+                object obj = ResourceManager.GetObject("IconFormatBulletList", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconHeaderLine {
+            get {
+                object obj = ResourceManager.GetObject("IconHeaderLine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconLineBelow {
+            get {
+                object obj = ResourceManager.GetObject("IconLineBelow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconResize {
             get {
                 object obj = ResourceManager.GetObject("IconResize", resourceCulture);
@@ -76,6 +106,26 @@ namespace PowerPoint_Warrior.Properties {
         internal static System.Drawing.Bitmap IconResizeGrey {
             get {
                 object obj = ResourceManager.GetObject("IconResizeGrey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconSetLanguageEnglish {
+            get {
+                object obj = ResourceManager.GetObject("IconSetLanguageEnglish", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IconSetLanguageFinnsh {
+            get {
+                object obj = ResourceManager.GetObject("IconSetLanguageFinnsh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

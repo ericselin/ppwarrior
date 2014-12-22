@@ -118,11 +118,26 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="IconFormatBulletList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonFormatBulletList.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconHeaderLine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconHeaderLine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconLineBelow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonLineBelow.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="IconResize" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconResize.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IconResizeGrey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconResizeGrey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconSetLanguageEnglish" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonSetLanguageEnglish.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconSetLanguageFinnsh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonSetLanguageFinnsh.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IconWordwrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconWordwrap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
