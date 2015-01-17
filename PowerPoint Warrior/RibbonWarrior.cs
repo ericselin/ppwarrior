@@ -145,6 +145,8 @@ namespace PowerPoint_Warrior
                 // These are always shown, except for when license invalid
                 menuSetLanguage.Enabled = selection.Valid;
                 editBoxGoToSlide.Enabled = selection.Valid;
+                btnRemoveAnimations.Enabled = selection.Valid;
+                btnRemoveNotes.Enabled = selection.Valid;
             }
             catch (Exception ex)
             {
@@ -676,6 +678,38 @@ namespace PowerPoint_Warrior
                 ToolsGuidelines.HeaderLine(window);
 
                 logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnRemoveNotes_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Presentation presentation = Globals.ThisAddIn.Application.ActivePresentation;
+                ToolsAndFormatting.RemoveNotes(presentation);
+
+                logUsage(sender, e);
+
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnRemoveAnimations_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Presentation presentation = Globals.ThisAddIn.Application.ActivePresentation;
+                ToolsAndFormatting.RemoveAnimations(presentation);
+
+                logUsage(sender, e);
+
             }
             catch (Exception ex)
             {

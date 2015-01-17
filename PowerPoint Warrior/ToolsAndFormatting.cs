@@ -231,5 +231,35 @@ namespace PowerPoint_Warrior
                 }
             }
         }
+
+        internal static void RemoveNotes(PowerPoint.Presentation presentation)
+        {
+            foreach (PowerPoint.Slide slide in presentation.Slides)
+            {
+                if (slide.HasNotesPage == Office.MsoTriState.msoTrue)
+                {
+                    PowerPoint.Shape notes = slide.NotesPage.Shapes.Placeholders[2];
+                    if (notes.HasTextFrame == Office.MsoTriState.msoTrue)
+                    {
+                        notes.TextFrame.DeleteText();
+                        notes.TextFrame2.DeleteText();
+                    }
+                }
+            }
+        }
+
+        internal static void RemoveAnimations(PowerPoint.Presentation presentation)
+        {
+            foreach (PowerPoint.Slide slide in presentation.Slides)
+            {
+                // Remove transitions
+                slide.SlideShowTransition.EntryEffect = PowerPoint.PpEntryEffect.ppEffectNone;
+                // Remove effects of individual shapes
+                foreach (PowerPoint.Shape shape in slide.Shapes)
+                {
+                    shape.AnimationSettings.Animate = Office.MsoTriState.msoFalse;
+                }
+            }
+        }
     }
 }
