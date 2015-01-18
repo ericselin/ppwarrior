@@ -132,6 +132,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -190,6 +191,7 @@
     <Compile Include="RibbonWarrior.designer.cs">
       <DependentUpon>RibbonWarrior.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="ToolsAndFormatting.cs" />
     <Compile Include="ToolsCommon.cs" />
     <Compile Include="ToolsGuidelines.cs" />

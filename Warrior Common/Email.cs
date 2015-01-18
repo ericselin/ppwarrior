@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Warrior_Common
+namespace WarriorCommon
 {
     public static class Email
     {

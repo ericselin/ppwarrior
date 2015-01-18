@@ -39,7 +39,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.errorpSettings = new System.Windows.Forms.ErrorProvider(this.components);
             this.label6 = new System.Windows.Forms.Label();
-            this.lblTrialExpires = new System.Windows.Forms.Label();
+            this.lblValidUntil = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbLicenseKey = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorpSettings)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +54,7 @@
             this.chkLogging.Checked = true;
             this.chkLogging.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLogging.Enabled = false;
-            this.chkLogging.Location = new System.Drawing.Point(18, 216);
+            this.chkLogging.Location = new System.Drawing.Point(18, 327);
             this.chkLogging.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkLogging.Name = "chkLogging";
             this.chkLogging.Size = new System.Drawing.Size(315, 24);
@@ -59,18 +64,19 @@
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(18, 245);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(18, 356);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(397, 54);
+            this.label1.Size = new System.Drawing.Size(365, 40);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Anonymous usage logging is enabled by default in this version, this is very impor" +
-    "tant for development.";
+            this.label1.Text = "Anonymous usage logging is enabled by default in \r\nthis version, this is very imp" +
+    "ortant for development\r\n";
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(145, 355);
+            this.btnOk.Location = new System.Drawing.Point(145, 507);
             this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(112, 35);
@@ -137,28 +143,79 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 309);
+            this.label6.Location = new System.Drawing.Point(69, 461);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(179, 20);
+            this.label6.Size = new System.Drawing.Size(81, 20);
             this.label6.TabIndex = 8;
-            this.label6.Text = "This trial version expires:";
+            this.label6.Text = "Valid until:";
             // 
-            // lblTrialExpires
+            // lblValidUntil
             // 
-            this.lblTrialExpires.AutoSize = true;
-            this.lblTrialExpires.Location = new System.Drawing.Point(200, 309);
-            this.lblTrialExpires.Name = "lblTrialExpires";
-            this.lblTrialExpires.Size = new System.Drawing.Size(21, 20);
-            this.lblTrialExpires.TabIndex = 9;
-            this.lblTrialExpires.Text = "...";
+            this.lblValidUntil.AutoSize = true;
+            this.lblValidUntil.Location = new System.Drawing.Point(187, 461);
+            this.lblValidUntil.Name = "lblValidUntil";
+            this.lblValidUntil.Size = new System.Drawing.Size(21, 20);
+            this.lblValidUntil.TabIndex = 9;
+            this.lblValidUntil.Text = "...";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(18, 215);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(108, 20);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "License key:";
+            // 
+            // tbLicenseKey
+            // 
+            this.tbLicenseKey.Location = new System.Drawing.Point(22, 244);
+            this.tbLicenseKey.Name = "tbLicenseKey";
+            this.tbLicenseKey.Size = new System.Drawing.Size(389, 26);
+            this.tbLicenseKey.TabIndex = 10;
+            this.tbLicenseKey.WordWrap = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(18, 280);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(200, 20);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Leave blank for trial version";
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(187, 428);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(21, 20);
+            this.lblVersion.TabIndex = 14;
+            this.lblVersion.Text = "...";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(69, 428);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(62, 20);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Edition:";
             // 
             // FormSettings
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 411);
-            this.Controls.Add(this.lblTrialExpires);
+            this.ClientSize = new System.Drawing.Size(458, 572);
+            this.Controls.Add(this.lblVersion);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.tbLicenseKey);
+            this.Controls.Add(this.lblValidUntil);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -192,7 +249,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ErrorProvider errorpSettings;
-        private System.Windows.Forms.Label lblTrialExpires;
+        private System.Windows.Forms.Label lblValidUntil;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbLicenseKey;
     }
 }

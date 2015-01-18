@@ -5,11 +5,6 @@ using System.Text;
 
 namespace PowerPoint_Warrior
 {
-    enum Edition
-    {
-        Trial, Free, Starter, Premium, Corporate
-    }
-
     // Create the selection struct
     public struct SelectionType
     {

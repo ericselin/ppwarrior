@@ -8,10 +8,16 @@
     <Setting Name="UserEmail" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UserLicense" Type="System.String" Scope="User">
+    <Setting Name="LicenseKey" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="TrialExpires" Type="System.DateTime" Scope="User">
+    <Setting Name="ValidUntil" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Edition" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Trial</Value>
+    </Setting>
+    <Setting Name="Company" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

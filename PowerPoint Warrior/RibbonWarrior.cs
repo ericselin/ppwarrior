@@ -3,7 +3,7 @@ using Microsoft.Office.Tools.Ribbon;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using Office = Microsoft.Office.Core;
 using System.Windows.Forms;
-using Warrior_Common;
+using WarriorCommon;
 using Style_Manager;
 
 namespace PowerPoint_Warrior
@@ -13,7 +13,6 @@ namespace PowerPoint_Warrior
         Style_Manager.StyleLogic styles;
         string officeVersion;
         string userEmail;
-        Edition userEdition;
         UsageLogger logger;
         bool licenseValid;
         // position used by pick up / apply pos.
@@ -58,15 +57,13 @@ namespace PowerPoint_Warrior
         private void checkLicense()
         {
             // if trial date does not exist, set it 30 days from now
-            if (Properties.Settings.Default.TrialExpires == DateTime.MinValue)
+            if (Properties.Settings.Default.ValidUntil == DateTime.MinValue)
             {
-                Properties.Settings.Default.TrialExpires = DateTimeOffset.Now.AddDays(30).DateTime;
+                Properties.Settings.Default.ValidUntil = DateTimeOffset.Now.AddDays(30).DateTime;
             }
             // license is valid if we have an e-mail AND trial is still valid
             licenseValid = !string.IsNullOrEmpty(userEmail) &&
-                Properties.Settings.Default.TrialExpires > DateTime.Now;
-            // set the correct edition
-            userEdition = Edition.Trial;
+                Properties.Settings.Default.ValidUntil > DateTime.Now;
         }
 
         private void Application_WindowSelectionChange(PowerPoint.Selection Sel)
@@ -247,7 +244,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -264,7 +261,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -281,7 +278,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -297,7 +294,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -312,7 +309,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -342,7 +339,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -439,7 +436,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -452,7 +449,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 

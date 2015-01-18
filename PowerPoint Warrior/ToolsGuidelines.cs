@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using Office = Microsoft.Office.Core;
-using Warrior_Common;
+using WarriorCommon;
 using System.Windows.Forms;
 
 namespace PowerPoint_Warrior
@@ -136,13 +136,13 @@ namespace PowerPoint_Warrior
                 conn.ConnectorFormat.EndDisconnect();
                 conn.Height = 0f;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (conn != null)
                 {
                     conn.Delete();
                 }
-                throw ex;
+                throw;
             }
             // return the created header line
             return conn;

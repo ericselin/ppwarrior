@@ -6,9 +6,9 @@ using System.Deployment.Application;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace Warrior_Common
+namespace WarriorCommon
 {
-    public static class Definitions
+    public static class Information
     {
         internal static string GetUserName()
         {

@@ -2,7 +2,7 @@
 using Segment.Model;
 using System;
 
-namespace Warrior_Common
+namespace WarriorCommon
 {
     public class UsageLogger
     {
@@ -38,7 +38,7 @@ namespace Warrior_Common
             if (buttonName != null && buttonName.Length > 0)
                 properties.Add("Button Name", buttonName);
             // if we don't have the email, just send the username
-            var userId = string.IsNullOrEmpty(userEmail) ? Definitions.GetUserName() : userEmail;
+            var userId = string.IsNullOrEmpty(userEmail) ? Information.GetUserName() : userEmail;
             // post to segment.io
             Analytics.Client.Track(userId, eventName, properties);
         }
@@ -56,8 +56,8 @@ namespace Warrior_Common
                 this.userEmail = userEmail;
                 Analytics.Client.Identify(this.userEmail, new Traits()
                 {
-                    { "Assembly Version", Definitions.GetAssemblyVersion() },
-                    { "ClickOnce Version", Definitions.GetClickOnceVersion() },
+                    { "Assembly Version", Information.GetAssemblyVersion() },
+                    { "ClickOnce Version", Information.GetClickOnceVersion() },
                     { "Office Version", officeVersion },
                     // Windows versions: http://msdn.microsoft.com/en-us/library/windows/desktop/ms724832%28v=vs.85%29.aspx
                     { "Windows Version", windowsVersion },
