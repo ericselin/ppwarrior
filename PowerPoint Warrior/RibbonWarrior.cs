@@ -104,11 +104,9 @@ namespace PowerPoint_Warrior
                         Sel.Type == PowerPoint.PpSelectionType.ppSelectionText) &&
                         Sel.ShapeRange.Count == 1 &&
                         Sel.ShapeRange[1].HasTable == Office.MsoTriState.msoTrue;
-                    // Set always available buttons to enabled
-                    selection.Valid = true;
 
                     // Only do the icon and checked at this point
-                    checkSelectionBoxes(Globals.ThisAddIn.Application.ActiveWindow.Selection); 
+                    checkSelectionBoxes(Globals.ThisAddIn.Application.ActiveWindow.Selection);
                 }
                 else
                 {
@@ -140,10 +138,11 @@ namespace PowerPoint_Warrior
                 // These when one table
                 btnFormatTable.Enabled = selection.TableOne;
                 // These are always shown, except for when license invalid
-                menuSetLanguage.Enabled = selection.Valid;
-                editBoxGoToSlide.Enabled = selection.Valid;
-                btnRemoveAnimations.Enabled = selection.Valid;
-                btnRemoveNotes.Enabled = selection.Valid;
+                menuSetLanguage.Enabled = licenseValid;
+                editBoxGoToSlide.Enabled = licenseValid;
+                btnRemoveAnimations.Enabled = licenseValid;
+                btnRemoveNotes.Enabled = licenseValid;
+                btnPrintHandouts.Enabled = licenseValid;
             }
             catch (Exception ex)
             {
@@ -362,7 +361,7 @@ namespace PowerPoint_Warrior
                 ddi.Label = style.Key;
                 ddi.Tag = style.Key;
                 ddi.OfficeImageId = "CellStylesGallery";
-                galleryStyles.Items.Add(ddi); 
+                galleryStyles.Items.Add(ddi);
             }
         }
 
@@ -400,7 +399,7 @@ namespace PowerPoint_Warrior
                     // show the dialog
                     settings.ShowDialog(w);
                     // if email now exists, update user identity
-                    if(!string.IsNullOrEmpty(Properties.Settings.Default.UserEmail))
+                    if (!string.IsNullOrEmpty(Properties.Settings.Default.UserEmail))
                     {
                         userEmail = Properties.Settings.Default.UserEmail;
                         logger.UpdateIdentity(userEmail, Properties.Settings.Default.Company);
@@ -707,6 +706,21 @@ namespace PowerPoint_Warrior
 
                 logUsage(sender, e);
 
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnPrintHandouts_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Presentation presentation = Globals.ThisAddIn.Application.ActivePresentation;
+                ToolsAndFormatting.PrintHandouts(presentation);
+
+                logUsage(sender, e);
             }
             catch (Exception ex)
             {

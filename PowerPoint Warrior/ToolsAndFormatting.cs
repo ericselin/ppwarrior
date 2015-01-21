@@ -123,7 +123,7 @@ namespace PowerPoint_Warrior
                 // make line and fill "no color"
                 shape.Fill.Visible = Office.MsoTriState.msoFalse;
                 shape.Line.Visible = Office.MsoTriState.msoFalse;
-                
+
                 window.View.Slide.Shapes.AddLine(
                     shape.Left, shape.Top + shape.Height, shape.Left + shape.Width, shape.Top + shape.Height);
             }
@@ -238,7 +238,7 @@ namespace PowerPoint_Warrior
             {
                 if (slide.HasNotesPage == Office.MsoTriState.msoTrue)
                 {
-                    PowerPoint.Shape notes = slide.NotesPage.Shapes.Placeholders[2];
+                    PowerPoint.Shape notes = getPlaceholder(PowerPoint.PpPlaceholderType.ppPlaceholderBody, slide.Shapes);
                     if (notes.HasTextFrame == Office.MsoTriState.msoTrue)
                     {
                         notes.TextFrame.DeleteText();
@@ -260,6 +260,114 @@ namespace PowerPoint_Warrior
                     shape.AnimationSettings.Animate = Office.MsoTriState.msoFalse;
                 }
             }
+        }
+
+        internal static void PrintHandouts(PowerPoint.Presentation presentation)
+        {
+            // format notes master
+            var master = presentation.NotesMaster;
+            // line specs
+            const float marginX = 2 * Constants.PointsPerCm;
+            const float spacingY = 1 * Constants.PointsPerCm;
+            const float marginY = 2 * Constants.PointsPerCm;
+            const float slidePhMaxHeight = 10 * Constants.PointsPerCm;
+            const string lineTag = "Warrior Line";
+            // reposition and resize slide placeholder
+            var slidePh = master.Shapes.Placeholders[3];
+            slidePh.Top = marginY;
+            // if we scale the whole width, how much would we scale?
+            var scaleMax = (master.Width - 2 * marginX) / slidePh.Width;
+            // remember, the slide can only be as high as slidePhMax
+            var height = Math.Min(scaleMax * slidePh.Height, slidePhMaxHeight);
+            // scale height so that slidePh fits in both directions
+            slidePh.ScaleHeight(height / slidePh.Height, Office.MsoTriState.msoFalse);
+            // center slidePh
+            slidePh.Left = master.Width / 2 - slidePh.Width / 2;
+            // where new lines should begin
+            float startY = slidePh.Top + slidePh.Height + 2 * spacingY;
+            // remove old lines
+            for (int j = master.Shapes.Count; j > 0; j--)
+            {
+                var line = master.Shapes[j];
+                if (line.Tags[lineTag] == lineTag)
+                {
+                    line.Delete();
+                }
+            }
+            // insert new lines
+            int i = 0;
+            while (startY + i * spacingY + marginY < master.Height)
+            {
+                var y = startY + i * spacingY;
+                var line = master.Shapes.AddLine(marginX, y, master.Width - marginX, y);
+                line.ShapeStyle = Office.MsoShapeStyleIndex.msoLineStylePreset1;
+                line.Tags.Add(lineTag, lineTag);
+                i++;
+            }
+            // set headers and footers (presentation name and slide nr, hide rest)
+
+            // for every slide (with notes), hide notes text box, and reset layout
+            foreach (PowerPoint.Slide slide in presentation.Slides)
+            {
+                if (slide.HasNotesPage == Office.MsoTriState.msoTrue)
+                {
+                    var notesPage = slide.NotesPage;
+                    // types: slide image: title, notes: body
+                    // reset slide image to master position (delete and insert)
+                    PowerPoint.Shape ph = getPlaceholder(PowerPoint.PpPlaceholderType.ppPlaceholderTitle, notesPage.Shapes);
+                    if (ph != null)
+                    {
+                        // if exists, delete and add
+                        ph.Delete();
+                        notesPage.Shapes.AddPlaceholder(PowerPoint.PpPlaceholderType.ppPlaceholderTitle);
+                    }
+                    else
+                    {
+                        // if does not exist, just add
+                        notesPage.Shapes.AddPlaceholder(PowerPoint.PpPlaceholderType.ppPlaceholderTitle);
+                    }
+                    // hide notes textbox
+                    ph = getPlaceholder(PowerPoint.PpPlaceholderType.ppPlaceholderBody, notesPage.Shapes);
+                    if (ph != null)
+                    {
+                        // if exists, hide it
+                        ph.Visible = Office.MsoTriState.msoFalse;
+                    } 
+                }
+            }
+            // print using notes view
+            presentation.PrintOptions.OutputType = PowerPoint.PpPrintOutputType.ppPrintOutputNotesPages;
+            presentation.PrintOptions.PrintComments = Office.MsoTriState.msoFalse;
+            presentation.PrintOptions.PrintHiddenSlides = Office.MsoTriState.msoFalse;
+            presentation.Application.ActiveWindow.ViewType = PowerPoint.PpViewType.ppViewPrintPreview;
+        }
+
+        /// <summary>
+        /// Get placeholder of the specified type from a particular shapes collection
+        /// </summary>
+        /// <param name="placeholderType">Type of placeholder to return</param>
+        /// <param name="shapes">Shapes object (NOT the Placeholders object)</param>
+        /// <returns>Shape representing placeholder, null if not found</returns>
+        private static PowerPoint.Shape getPlaceholder(PowerPoint.PpPlaceholderType placeholderType, PowerPoint.Shapes shapes)
+        {
+            // go through placeholders in shapes
+            foreach (PowerPoint.Shape ph in shapes.Placeholders)
+            {
+                // if it is the correct type, return it
+                try
+                {
+                    if (ph.PlaceholderFormat.Type == placeholderType)
+                    {
+                        return ph;
+                    }
+                }
+                catch (Exception)
+                {
+                    // swallow exceptions, if there's an exception, it's not really there
+                }
+            }
+            // not found, return null
+            return null;
         }
     }
 }

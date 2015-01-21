@@ -43,8 +43,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tbLicenseKey = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.lblVersion = new System.Windows.Forms.Label();
+            this.lblEdition = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorpSettings)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,7 +78,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(144, 506);
+            this.btnOk.Location = new System.Drawing.Point(144, 531);
             this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(112, 35);
@@ -143,7 +145,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(69, 461);
+            this.label6.Location = new System.Drawing.Point(69, 454);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 20);
             this.label6.TabIndex = 8;
@@ -152,7 +154,7 @@
             // lblValidUntil
             // 
             this.lblValidUntil.AutoSize = true;
-            this.lblValidUntil.Location = new System.Drawing.Point(187, 461);
+            this.lblValidUntil.Location = new System.Drawing.Point(187, 454);
             this.lblValidUntil.Name = "lblValidUntil";
             this.lblValidUntil.Size = new System.Drawing.Size(21, 20);
             this.lblValidUntil.TabIndex = 9;
@@ -186,31 +188,51 @@
             this.label8.TabIndex = 12;
             this.label8.Text = "Leave blank for trial version";
             // 
-            // lblVersion
+            // lblEdition
             // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(187, 428);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(21, 20);
-            this.lblVersion.TabIndex = 14;
-            this.lblVersion.Text = "...";
+            this.lblEdition.AutoSize = true;
+            this.lblEdition.Location = new System.Drawing.Point(187, 421);
+            this.lblEdition.Name = "lblEdition";
+            this.lblEdition.Size = new System.Drawing.Size(21, 20);
+            this.lblEdition.TabIndex = 14;
+            this.lblEdition.Text = "...";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(69, 428);
+            this.label10.Location = new System.Drawing.Point(69, 421);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(62, 20);
             this.label10.TabIndex = 13;
             this.label10.Text = "Edition:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(69, 487);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(67, 20);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Version:";
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(187, 487);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(21, 20);
+            this.lblVersion.TabIndex = 16;
+            this.lblVersion.Text = "...";
             // 
             // FormSettings
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 572);
+            this.ClientSize = new System.Drawing.Size(458, 585);
             this.Controls.Add(this.lblVersion);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.lblEdition);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -251,10 +273,12 @@
         private System.Windows.Forms.ErrorProvider errorpSettings;
         private System.Windows.Forms.Label lblValidUntil;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label lblEdition;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbLicenseKey;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label label9;
     }
 }

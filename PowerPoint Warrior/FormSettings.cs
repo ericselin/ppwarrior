@@ -18,11 +18,13 @@ namespace PowerPoint_Warrior
             tbEmail.Text = Properties.Settings.Default.UserEmail;
             tbLicenseKey.Text = Properties.Settings.Default.LicenseKey;
             // Edition text, if company name exists, append that as well
-            lblVersion.Text = Properties.Settings.Default.Edition;
+            lblEdition.Text = Properties.Settings.Default.Edition;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.Company))
-                lblVersion.Text = lblVersion.Text + " / " + Properties.Settings.Default.Company;
+                lblEdition.Text = lblEdition.Text + " / " + Properties.Settings.Default.Company;
             // Valid until
             lblValidUntil.Text = Properties.Settings.Default.ValidUntil.ToString("d");
+            // Version
+            lblVersion.Text = WarriorCommon.Information.GetClickOnceVersion();
             // Give focus to e-mail
             tbEmail.Focus();
         }
