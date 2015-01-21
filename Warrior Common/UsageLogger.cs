@@ -75,6 +75,7 @@ namespace WarriorCommon
             traits.Add("Office Version", officeVersion);
             // Windows versions: http://msdn.microsoft.com/en-us/library/windows/desktop/ms724832%28v=vs.85%29.aspx
             traits.Add("Windows Version", windowsVersion);
+            traits.Add("Windows User Name", Information.GetUserName());
             // add email as trait
             if (!string.IsNullOrEmpty(userEmail))
             {
