@@ -37,7 +37,17 @@ namespace PowerPoint_Warrior
                     Properties.Settings.Default.LicenseKey != tbLicenseKey.Text))
                 {
                     // Check license online
+                    // let user know we are doing something
+                    var btnText = btnOk.Text;
+                    btnOk.Text = "Checking...";
+                    btnOk.Enabled = false;
+                    Cursor = Cursors.WaitCursor;
+                    // check awaiting
                     WarriorCommon.License license = await checkLicense();
+                    // return to regular state
+                    btnOk.Text = btnText;
+                    btnOk.Enabled = true;
+                    Cursor = Cursors.Default;
 
                     if (license != null)
                     {

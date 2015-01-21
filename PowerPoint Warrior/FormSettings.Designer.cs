@@ -76,7 +76,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(145, 507);
+            this.btnOk.Location = new System.Drawing.Point(144, 506);
             this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(112, 35);
