@@ -143,8 +143,29 @@ namespace PowerPoint_Warrior
                 btnRemoveAnimations.Enabled = licenseValid;
                 btnRemoveNotes.Enabled = licenseValid;
                 btnPrintHandouts.Enabled = licenseValid;
-            }
-            catch (Exception ex)
+
+				#region Enable all buttons
+				// Uncomment when taking screenshots
+				//btnApplyPosition.Enabled = licenseValid;
+				//btnPickUpPosition.Enabled = licenseValid;
+				//gallerySelectSimilar.Enabled = licenseValid;
+				//btnSplitShape.Enabled = licenseValid;
+				//btnHeaderLine.Enabled = licenseValid;
+				//btnSameHeight.Enabled = licenseValid;
+				//btnSameWidth.Enabled = licenseValid;
+				//galleryAlign.Enabled = licenseValid;
+				//btnSwapPos.Enabled = licenseValid;
+				//toggleAutoFit.Enabled = licenseValid;
+				//toggleWordWrap.Enabled = licenseValid;
+				//galleryStyles.Enabled = licenseValid;
+				//btnLineBelow.Enabled = licenseValid;
+				//btnFormatBullets.Enabled = licenseValid;
+				//btnRemoveEffects.Enabled = licenseValid;
+				//btnPasteFromExcel.Enabled = licenseValid;
+				//btnFormatTable.Enabled = licenseValid;
+				#endregion
+			}
+			catch (Exception ex)
             {
                 Exceptions.Handle(ex, officeVersion, userEmail);
             }
