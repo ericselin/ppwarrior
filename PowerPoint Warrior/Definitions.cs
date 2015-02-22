@@ -79,5 +79,18 @@ namespace PowerPoint_Warrior
 			}
 			return "Debug";
 		}
+
+		internal static string GetWindowsVersion()
+		{
+			return string.Format("{0}.{1}", Environment.OSVersion.Version.Major, Environment.OSVersion.Version.Minor);
+        }
+
+		internal static string GetNETVersion()
+		{
+			return System.Reflection.Assembly
+					 .GetExecutingAssembly()
+					 .GetReferencedAssemblies()
+					 .Where(x => x.Name == "System.Core").First().Version.ToString();
+		}
 	}
 }

@@ -11,24 +11,44 @@ namespace PowerPoint_Warrior
 	{
 		public static void Handle(Exception ex, string officeVersion, string userEmail, bool showMessage = true)
 		{
+			Handle(ex, showMessage);
+		}
+		public static void Handle(Exception ex, bool showMessage = true)
+		{
 #if !DEBUG
-            // create raygun client and set appropriate flags
-            RaygunClient _client = new RaygunClient("z2DRwwFDwxCn/6WrH/Irqg==");
-            _client.User = Information.GetUserName();
-            if (!string.IsNullOrEmpty(userEmail))
-            {
-                RaygunIdentifierMessage userInfo = new RaygunIdentifierMessage(_client.User);
-                userInfo.Email = userEmail;
-                _client.UserInfo = userInfo;
-            }
-            _client.ApplicationVersion = Information.GetAssemblyVersion();
-            var customData = new Dictionary<string, string>() {
-            { "Office Version", officeVersion }, { "ClickOnce Version", Information.GetClickOnceVersion() }, { "Assembly Version", Information.GetAssemblyVersion() } };
-            // send exception to raygun
-            _client.Send(ex, null, customData);
-            // post event to segment.io
-            var _logger = new UsageLogger(officeVersion, userEmail, null);
-            _logger.PostException(ex); 
+			var userEmail = Properties.Settings.Default.UserEmail;
+			// create raygun client and set appropriate flags
+			RaygunClient _client = new RaygunClient("z2DRwwFDwxCn/6WrH/Irqg==");
+			// raygun identifier is user name
+			_client.User = Information.GetUserName();
+			// insert email if we have it
+			if (!string.IsNullOrEmpty(userEmail))
+			{
+				RaygunIdentifierMessage userInfo = new RaygunIdentifierMessage(_client.User);
+				userInfo.Email = userEmail;
+				_client.UserInfo = userInfo;
+			}
+			// set version to clickonce version
+			_client.ApplicationVersion = Information.GetClickOnceVersion();
+			// make custom data object
+			var customData = new Dictionary<string, string>();
+			try
+			{
+				customData.Add("ClickOnce Version", Information.GetClickOnceVersion());
+				customData.Add("Office Version", Globals.ThisAddIn.Application.Version);
+				customData.Add("Assembly Version", Information.GetAssemblyVersion());
+				customData.Add("Current Selection", Globals.ThisAddIn.Application.ActiveWindow.Selection.Type.ToString());
+				customData.Add("Active view pane", Globals.ThisAddIn.Application.ActiveWindow.ActivePane.ViewType.ToString());
+			}
+			catch (Exception iex)
+			{
+				ex = new Exception("Could not create custom data for exception", iex);
+			}
+			// send exception to raygun
+			_client.Send(ex, null, customData);
+			// post event to segment.io
+			var _logger = new UsageLogger();
+			_logger.PostException(ex);
 #endif
 
 			// show friendly message 

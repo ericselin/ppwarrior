@@ -29,7 +29,7 @@ namespace PowerPoint_Warrior
                 // set user email and license
                 userEmail = Properties.Settings.Default.UserEmail;
                 // create logger instance
-                logger = new UsageLogger(officeVersion, userEmail, Properties.Settings.Default.Company);
+                logger = new UsageLogger();
                 // Check license (valid edition and e-mail inserted) - disables controls if not valid
                 checkLicense();
                 // if no e-mail, show settings box
