@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Deployment.Application;
 
 namespace PowerPoint_Warrior
 {
@@ -57,4 +58,26 @@ namespace PowerPoint_Warrior
         SelectSimilarHorizontal, 
         SelectSimilarVertical
     }
+
+	public static class Information
+	{
+		public static string GetUserName()
+		{
+			return Environment.MachineName + "\\" + Environment.UserName;
+		}
+
+		public static string GetAssemblyVersion()
+		{
+			return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		}
+
+		public static string GetClickOnceVersion()
+		{
+			if (ApplicationDeployment.IsNetworkDeployed)
+			{
+				return ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+			}
+			return "Debug";
+		}
+	}
 }

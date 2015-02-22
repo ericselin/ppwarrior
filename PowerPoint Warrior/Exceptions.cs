@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WarriorCommon
+namespace PowerPoint_Warrior
 {
 	public static class Exceptions
 	{

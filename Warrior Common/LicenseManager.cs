@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace WarriorCommon
 {
@@ -33,12 +34,17 @@ namespace WarriorCommon
 				// add application key
 				client.DefaultRequestHeaders.Add("X-ZUMO-APPLICATION", APPLICATION_KEY);
 
+				// set up license quesry
 				var licenseInfo = new LicenseInfo { email = email, licenseKey = licenseKey };
+				var json = JsonConvert.SerializeObject(licenseInfo);
+				HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-				HttpResponseMessage response = await client.PostAsJsonAsync("api/checkLicense", licenseInfo);
+				HttpResponseMessage response = await client.PostAsync("api/checkLicense", content);
+
 				if (response.IsSuccessStatusCode)
 				{
-					return await response.Content.ReadAsAsync<License>();
+					var result = response.Content.ReadAsStringAsync();
+					return JsonConvert.DeserializeObject<License>(result.Result);
 				}
 
 				return null;

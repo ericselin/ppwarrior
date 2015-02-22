@@ -167,7 +167,7 @@ namespace PowerPoint_Warrior
 			}
 			catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail, false);
             }
         }
 
@@ -264,7 +264,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -281,7 +281,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -298,7 +298,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -314,7 +314,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -329,7 +329,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -359,7 +359,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -456,7 +456,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -469,7 +469,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                WarriorCommon.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
