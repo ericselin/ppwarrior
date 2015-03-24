@@ -90,7 +90,7 @@ namespace PowerPoint_Warrior
 			// just in case, add windows user name
             traits.Add("Windows User Name", Information.GetUserName());
 			// license
-			traits.Add("License Edition", Properties.Settings.Default.Edition);
+			traits.Add("Plan", Properties.Settings.Default.Edition);
 			traits.Add("License Valid Until", Properties.Settings.Default.ValidUntil);
 			// versions
             traits.Add("ClickOnce Version", Information.GetClickOnceVersion());
@@ -102,11 +102,13 @@ namespace PowerPoint_Warrior
             {
                 Analytics.Client.Identify(this.userId, traits);
             }
-            // if we have a company, also create a group
-            if (!string.IsNullOrEmpty(company))
+            // if we have a company, also create a group - not used for intercom!
+            /* TURN ON IF NEEDED
+			if (!string.IsNullOrEmpty(company))
             {
-                Analytics.Client.Group(this.userId, company, new Traits { { "name", company } } );
-            }
+                Analytics.Client.Group(this.userId, company, new Traits { { "name", company } }, 
+					new Options().SetIntegration("Intercom", false) );
+            } */
         }
     }
 }
