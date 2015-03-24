@@ -36,7 +36,7 @@
     <PublishUrl>C:\Users\eseli\Source\Publish\PowerPoint Warrior\</PublishUrl>
     <InstallUrl>https://ppwarrior.blob.core.windows.net/install/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.3.1.7</ApplicationVersion>
+    <ApplicationVersion>1.3.1.20</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -240,7 +240,6 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="PowerPoint Warrior_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -313,7 +312,7 @@
     </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8F040E4485FCC9FEF9711088035935C67417D27A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>8CAF57081EDC7BCE2D4BFACCF8292CB975CFB2E5</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
