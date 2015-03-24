@@ -212,7 +212,6 @@
       <DependentUpon>RibbonWarrior.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="PowerPoint Warrior_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -285,7 +284,7 @@
     </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8F040E4485FCC9FEF9711088035935C67417D27A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>8CAF57081EDC7BCE2D4BFACCF8292CB975CFB2E5</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
