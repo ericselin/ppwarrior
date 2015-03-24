@@ -2,7 +2,7 @@
 using Segment.Model;
 using System;
 
-namespace WarriorCommon
+namespace PowerPoint_Warrior
 {
     public class UsageLogger
     {
@@ -10,13 +10,10 @@ namespace WarriorCommon
         private const string WRITE_KEY = "bjgcaeb4bj";
         // User email
         private string userId;
-        // Version info (need to get these from the addin)
-        private string officeVersion;
-        private string windowsVersion;
         // Traits to send with every event 
         private Traits traits;
 
-        public UsageLogger(string officeVersion, string userEmail, string company)
+        public UsageLogger()
         {
             // initialize segment.io, if debugging, do not use async
 #if DEBUG
@@ -25,18 +22,15 @@ namespace WarriorCommon
 #else
             Analytics.Initialize(WRITE_KEY);
 #endif
-            // set email - if we don't have the email, just send the username
-            this.userId = string.IsNullOrEmpty(userEmail) ? Information.GetUserName() : this.userId;
-            // set version info so we don't need to get it every time updateidentity is called
-            this.officeVersion = officeVersion;
-            this.windowsVersion = string.Format("{0}.{1}", Environment.OSVersion.Version.Major, Environment.OSVersion.Version.Minor);
+            // set userId - if we don't have the email, just send the username
+            this.userId = string.IsNullOrEmpty(Properties.Settings.Default.UserEmail) ? Information.GetUserName() : this.userId;
             // identify user
-            UpdateIdentity(userEmail, company);
+            UpdateIdentity();
         }
 
         internal void PostException(Exception ex)
         {
-            var properties = new Properties();
+            var properties = new Segment.Model.Properties();
             properties.Add("Exception message", ex.Message);
             properties.Add("Stack trace", ex.StackTrace);
             // post to segment.io
@@ -47,7 +41,7 @@ namespace WarriorCommon
         public void PostUsage(string eventName, string buttonName)
         {
             // properties to include in track call
-            var properties = new Properties();
+            var properties = new Segment.Model.Properties();
             // if there is a button name, include it in properties
             if (buttonName != null && buttonName.Length > 0)
                 properties.Add("Button Name", buttonName);
@@ -63,19 +57,25 @@ namespace WarriorCommon
 
         public void UpdateIdentity(string userEmail)
         {
-            UpdateIdentity(userEmail, null);
+            UpdateIdentity();
         }
 
-        public void UpdateIdentity(string userEmail, string company)
-        {
-            // set traits
-            traits = new Traits();
-            traits.Add("Assembly Version", Information.GetAssemblyVersion());
-            traits.Add("ClickOnce Version", Information.GetClickOnceVersion());
-            traits.Add("Office Version", officeVersion);
-            // Windows versions: http://msdn.microsoft.com/en-us/library/windows/desktop/ms724832%28v=vs.85%29.aspx
-            traits.Add("Windows Version", windowsVersion);
-            traits.Add("Windows User Name", Information.GetUserName());
+		public void UpdateIdentity(string userEmail, string company)
+		{
+			UpdateIdentity();
+		}
+
+		public void UpdateIdentity(string userEmail, string company, string something)
+		{
+			UpdateIdentity();
+		}
+
+		public void UpdateIdentity()
+		{
+			var userEmail = Properties.Settings.Default.UserEmail;
+			var company = Properties.Settings.Default.Company;	
+			// set traits
+			traits = new Traits();
             // add email as trait
             if (!string.IsNullOrEmpty(userEmail))
             {
@@ -87,16 +87,28 @@ namespace WarriorCommon
             {
                 traits.Add("Company", company);
             }
+			// just in case, add windows user name
+            traits.Add("Windows User Name", Information.GetUserName());
+			// license
+			traits.Add("Plan", Properties.Settings.Default.Edition);
+			traits.Add("License Valid Until", Properties.Settings.Default.ValidUntil);
+			// versions
+            traits.Add("ClickOnce Version", Information.GetClickOnceVersion());
+            traits.Add("Office Version", Globals.ThisAddIn.Application.Version);
+            // Windows versions: http://msdn.microsoft.com/en-us/library/windows/desktop/ms724832%28v=vs.85%29.aspx
+            traits.Add("Windows Version", Information.GetWindowsVersion());
             // if there is an email, identify
             if (!string.IsNullOrEmpty(userEmail))
             {
                 Analytics.Client.Identify(this.userId, traits);
             }
-            // if we have a company, also create a group
-            if (!string.IsNullOrEmpty(company))
+            // if we have a company, also create a group - not used for intercom!
+            /* TURN ON IF NEEDED
+			if (!string.IsNullOrEmpty(company))
             {
-                Analytics.Client.Group(this.userId, company, new Traits { { "name", company } } );
-            }
+                Analytics.Client.Group(this.userId, company, new Traits { { "name", company } }, 
+					new Options().SetIntegration("Intercom", false) );
+            } */
         }
     }
 }

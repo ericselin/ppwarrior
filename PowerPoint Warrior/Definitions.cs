@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Deployment.Application;
 
 namespace PowerPoint_Warrior
 {
-    enum Edition
-    {
-        Trial, Free, Starter, Premium, Corporate
-    }
-
     // Create the selection struct
     public struct SelectionType
     {
@@ -24,19 +20,17 @@ namespace PowerPoint_Warrior
         // Text inside a table
         TableText,
         // One table
-        TableOne,
-        // Show if valid
-        Valid;
+        TableOne;
         // Set all as false
         public void SetAllFalse()
         {
-            ShapesOne = ShapesTwo = ShapesMoreThanOne = ShapesOrText = TableText = TableOne = Valid = false;
+            ShapesOne = ShapesTwo = ShapesMoreThanOne = ShapesOrText = TableText = TableOne = false;
         }
     };
 
     public static class Constants
     {
-        public static float PointsPerCm = 28.3464566929134f;
+        public const float PointsPerCm = 28.3464566929134f;
     }
 
     public class PowerPointPosition
@@ -64,4 +58,39 @@ namespace PowerPoint_Warrior
         SelectSimilarHorizontal, 
         SelectSimilarVertical
     }
+
+	public static class Information
+	{
+		public static string GetUserName()
+		{
+			return Environment.MachineName + "\\" + Environment.UserName;
+		}
+
+		public static string GetAssemblyVersion()
+		{
+			return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		}
+
+		public static string GetClickOnceVersion()
+		{
+			if (ApplicationDeployment.IsNetworkDeployed)
+			{
+				return ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+			}
+			return "Debug";
+		}
+
+		internal static string GetWindowsVersion()
+		{
+			return string.Format("{0}.{1}", Environment.OSVersion.Version.Major, Environment.OSVersion.Version.Minor);
+        }
+
+		internal static string GetNETVersion()
+		{
+			return System.Reflection.Assembly
+					 .GetExecutingAssembly()
+					 .GetReferencedAssemblies()
+					 .Where(x => x.Name == "System.Core").First().Version.ToString();
+		}
+	}
 }

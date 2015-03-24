@@ -3,7 +3,7 @@ using Microsoft.Office.Tools.Ribbon;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using Office = Microsoft.Office.Core;
 using System.Windows.Forms;
-using Warrior_Common;
+using WarriorCommon;
 using Style_Manager;
 
 namespace PowerPoint_Warrior
@@ -13,7 +13,6 @@ namespace PowerPoint_Warrior
         Style_Manager.StyleLogic styles;
         string officeVersion;
         string userEmail;
-        Edition userEdition;
         UsageLogger logger;
         bool licenseValid;
         // position used by pick up / apply pos.
@@ -30,7 +29,7 @@ namespace PowerPoint_Warrior
                 // set user email and license
                 userEmail = Properties.Settings.Default.UserEmail;
                 // create logger instance
-                logger = new UsageLogger(officeVersion, userEmail);
+                logger = new UsageLogger();
                 // Check license (valid edition and e-mail inserted) - disables controls if not valid
                 checkLicense();
                 // if no e-mail, show settings box
@@ -58,15 +57,13 @@ namespace PowerPoint_Warrior
         private void checkLicense()
         {
             // if trial date does not exist, set it 30 days from now
-            if (Properties.Settings.Default.TrialExpires == DateTime.MinValue)
+            if (Properties.Settings.Default.ValidUntil == DateTime.MinValue)
             {
-                Properties.Settings.Default.TrialExpires = DateTimeOffset.Now.AddDays(30).DateTime;
+                Properties.Settings.Default.ValidUntil = DateTimeOffset.Now.AddDays(30).DateTime;
             }
             // license is valid if we have an e-mail AND trial is still valid
             licenseValid = !string.IsNullOrEmpty(userEmail) &&
-                Properties.Settings.Default.TrialExpires > DateTime.Now;
-            // set the correct edition
-            userEdition = Edition.Trial;
+                Properties.Settings.Default.ValidUntil > DateTime.Now;
         }
 
         private void Application_WindowSelectionChange(PowerPoint.Selection Sel)
@@ -107,11 +104,9 @@ namespace PowerPoint_Warrior
                         Sel.Type == PowerPoint.PpSelectionType.ppSelectionText) &&
                         Sel.ShapeRange.Count == 1 &&
                         Sel.ShapeRange[1].HasTable == Office.MsoTriState.msoTrue;
-                    // Set always available buttons to enabled
-                    selection.Valid = true;
 
                     // Only do the icon and checked at this point
-                    checkSelectionBoxes(Globals.ThisAddIn.Application.ActiveWindow.Selection); 
+                    checkSelectionBoxes(Globals.ThisAddIn.Application.ActiveWindow.Selection);
                 }
                 else
                 {
@@ -143,12 +138,36 @@ namespace PowerPoint_Warrior
                 // These when one table
                 btnFormatTable.Enabled = selection.TableOne;
                 // These are always shown, except for when license invalid
-                menuSetLanguage.Enabled = selection.Valid;
-                editBoxGoToSlide.Enabled = selection.Valid;
-            }
-            catch (Exception ex)
+                menuSetLanguage.Enabled = licenseValid;
+                editBoxGoToSlide.Enabled = licenseValid;
+                btnRemoveAnimations.Enabled = licenseValid;
+                btnRemoveNotes.Enabled = licenseValid;
+                btnPrintHandouts.Enabled = licenseValid;
+
+				#region Enable all buttons
+				// Uncomment when taking screenshots
+				//btnApplyPosition.Enabled = licenseValid;
+				//btnPickUpPosition.Enabled = licenseValid;
+				//gallerySelectSimilar.Enabled = licenseValid;
+				//btnSplitShape.Enabled = licenseValid;
+				//btnHeaderLine.Enabled = licenseValid;
+				//btnSameHeight.Enabled = licenseValid;
+				//btnSameWidth.Enabled = licenseValid;
+				//galleryAlign.Enabled = licenseValid;
+				//btnSwapPos.Enabled = licenseValid;
+				//toggleAutoFit.Enabled = licenseValid;
+				//toggleWordWrap.Enabled = licenseValid;
+				//galleryStyles.Enabled = licenseValid;
+				//btnLineBelow.Enabled = licenseValid;
+				//btnFormatBullets.Enabled = licenseValid;
+				//btnRemoveEffects.Enabled = licenseValid;
+				//btnPasteFromExcel.Enabled = licenseValid;
+				//btnFormatTable.Enabled = licenseValid;
+				#endregion
+			}
+			catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail, false);
             }
         }
 
@@ -245,7 +264,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -262,7 +281,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -279,7 +298,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -295,7 +314,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -310,7 +329,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -340,7 +359,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -363,7 +382,7 @@ namespace PowerPoint_Warrior
                 ddi.Label = style.Key;
                 ddi.Tag = style.Key;
                 ddi.OfficeImageId = "CellStylesGallery";
-                galleryStyles.Items.Add(ddi); 
+                galleryStyles.Items.Add(ddi);
             }
         }
 
@@ -401,10 +420,10 @@ namespace PowerPoint_Warrior
                     // show the dialog
                     settings.ShowDialog(w);
                     // if email now exists, update user identity
-                    if(!string.IsNullOrEmpty(Properties.Settings.Default.UserEmail))
+                    if (!string.IsNullOrEmpty(Properties.Settings.Default.UserEmail))
                     {
                         userEmail = Properties.Settings.Default.UserEmail;
-                        logger.UpdateIdentity(userEmail);
+                        logger.UpdateIdentity(userEmail, Properties.Settings.Default.Company);
                     }
                 }
 
@@ -437,7 +456,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -450,7 +469,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Warrior_Common.Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex, officeVersion, userEmail);
             }
         }
 
@@ -674,6 +693,53 @@ namespace PowerPoint_Warrior
                 PowerPoint.DocumentWindow window = Globals.ThisAddIn.Application.ActiveWindow;
 
                 ToolsGuidelines.HeaderLine(window);
+
+                logUsage(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnRemoveNotes_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Presentation presentation = Globals.ThisAddIn.Application.ActivePresentation;
+                ToolsAndFormatting.RemoveNotes(presentation);
+
+                logUsage(sender, e);
+
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnRemoveAnimations_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Presentation presentation = Globals.ThisAddIn.Application.ActivePresentation;
+                ToolsAndFormatting.RemoveAnimations(presentation);
+
+                logUsage(sender, e);
+
+            }
+            catch (Exception ex)
+            {
+                Exceptions.Handle(ex, officeVersion, userEmail);
+            }
+        }
+
+        private void btnPrintHandouts_Click(object sender, RibbonControlEventArgs e)
+        {
+            try
+            {
+                PowerPoint.Presentation presentation = Globals.ThisAddIn.Application.ActivePresentation;
+                ToolsAndFormatting.PrintHandouts(presentation);
 
                 logUsage(sender, e);
             }

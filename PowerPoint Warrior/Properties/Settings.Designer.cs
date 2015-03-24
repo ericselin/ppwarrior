@@ -50,23 +50,47 @@ namespace PowerPoint_Warrior.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UserLicense {
+        public string LicenseKey {
             get {
-                return ((string)(this["UserLicense"]));
+                return ((string)(this["LicenseKey"]));
             }
             set {
-                this["UserLicense"] = value;
+                this["LicenseKey"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.DateTime TrialExpires {
+        public global::System.DateTime ValidUntil {
             get {
-                return ((global::System.DateTime)(this["TrialExpires"]));
+                return ((global::System.DateTime)(this["ValidUntil"]));
             }
             set {
-                this["TrialExpires"] = value;
+                this["ValidUntil"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Trial")]
+        public string Edition {
+            get {
+                return ((string)(this["Edition"]));
+            }
+            set {
+                this["Edition"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Company {
+            get {
+                return ((string)(this["Company"]));
+            }
+            set {
+                this["Company"] = value;
             }
         }
     }

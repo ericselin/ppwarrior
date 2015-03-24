@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using ComTypes = System.Runtime.InteropServices.ComTypes;
 
-namespace Warrior_Common
+namespace WarriorCommon
 {
     public class ComHelper
     {

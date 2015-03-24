@@ -6,21 +6,21 @@ using System.Deployment.Application;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace Warrior_Common
+namespace WarriorCommon
 {
-    public static class Definitions
+    public static class Information
     {
-        internal static string GetUserName()
+        public static string GetUserName()
         {
             return Environment.MachineName + "\\" + Environment.UserName;
         }
 
-        internal static string GetAssemblyVersion()
+        public static string GetAssemblyVersion()
         {
             return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        internal static string GetClickOnceVersion()
+        public static string GetClickOnceVersion()
         {
             if (ApplicationDeployment.IsNetworkDeployed)
             {
@@ -29,7 +29,7 @@ namespace Warrior_Common
             return "Debug";
         }
 
-        internal static string GetExternalIp()
+        public static string GetExternalIp()
         {
             string externalIP;
             externalIP = (new WebClient()).DownloadString("http://checkip.dyndns.org/");

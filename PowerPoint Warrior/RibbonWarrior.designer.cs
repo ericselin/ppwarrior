@@ -37,19 +37,26 @@
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl1 = this.Factory.CreateRibbonDropDownItem();
             this.tabWarrior = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
+            this.label1 = this.Factory.CreateRibbonLabel();
+            this.editBoxGoToSlide = this.Factory.CreateRibbonEditBox();
+            this.group2 = this.Factory.CreateRibbonGroup();
+            this.group4 = this.Factory.CreateRibbonGroup();
+            this.group3 = this.Factory.CreateRibbonGroup();
+            this.group5 = this.Factory.CreateRibbonGroup();
             this.galleryStyles = this.Factory.CreateRibbonGallery();
             this.btnSaveStyle = this.Factory.CreateRibbonButton();
             this.btnDeleteStyle = this.Factory.CreateRibbonButton();
             this.btnPasteFromExcel = this.Factory.CreateRibbonButton();
-            this.btnRemoveEffects = this.Factory.CreateRibbonButton();
-            this.btnFormatTable = this.Factory.CreateRibbonButton();
+            this.toggleAutoFit = this.Factory.CreateRibbonToggleButton();
+            this.toggleWordWrap = this.Factory.CreateRibbonToggleButton();
+            this.btnFormatBullets = this.Factory.CreateRibbonButton();
+            this.btnLineBelow = this.Factory.CreateRibbonButton();
             this.btnHeaderLine = this.Factory.CreateRibbonButton();
-            this.label1 = this.Factory.CreateRibbonLabel();
-            this.editBoxGoToSlide = this.Factory.CreateRibbonEditBox();
             this.menuSetLanguage = this.Factory.CreateRibbonMenu();
             this.btnSetAlltext = this.Factory.CreateRibbonButton();
             this.btnSetLanguageEnglish = this.Factory.CreateRibbonButton();
             this.btnSetLanguageFinnsh = this.Factory.CreateRibbonButton();
+            this.btnFormatTable = this.Factory.CreateRibbonButton();
             this.gallerySelectSimilar = this.Factory.CreateRibbonGallery();
             this.buttonSelectSimilarColorLine = this.Factory.CreateRibbonButton();
             this.buttonSelectSimilarColor = this.Factory.CreateRibbonButton();
@@ -58,7 +65,6 @@
             this.buttonSelectSimilarHeight = this.Factory.CreateRibbonButton();
             this.buttonSelectSimilarHorizontal = this.Factory.CreateRibbonButton();
             this.buttonSelectSimilarVertical = this.Factory.CreateRibbonButton();
-            this.group2 = this.Factory.CreateRibbonGroup();
             this.galleryAlign = this.Factory.CreateRibbonGallery();
             this.buttonAlignTopToBottom = this.Factory.CreateRibbonButton();
             this.buttonAlignLeftToRight = this.Factory.CreateRibbonButton();
@@ -68,24 +74,27 @@
             this.btnPickUpPosition = this.Factory.CreateRibbonButton();
             this.btnApplyPosition = this.Factory.CreateRibbonButton();
             this.btnSplitShape = this.Factory.CreateRibbonButton();
-            this.group3 = this.Factory.CreateRibbonGroup();
+            this.btnRemoveEffects = this.Factory.CreateRibbonButton();
+            this.btnRemoveNotes = this.Factory.CreateRibbonButton();
+            this.btnRemoveAnimations = this.Factory.CreateRibbonButton();
+            this.btnPrintHandouts = this.Factory.CreateRibbonButton();
             this.btnFeedback = this.Factory.CreateRibbonButton();
             this.btnAbout = this.Factory.CreateRibbonButton();
             this.btnUpgrade = this.Factory.CreateRibbonButton();
-            this.toggleAutoFit = this.Factory.CreateRibbonToggleButton();
-            this.toggleWordWrap = this.Factory.CreateRibbonToggleButton();
-            this.btnLineBelow = this.Factory.CreateRibbonButton();
-            this.btnFormatBullets = this.Factory.CreateRibbonButton();
             this.tabWarrior.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
+            this.group4.SuspendLayout();
             this.group3.SuspendLayout();
+            this.group5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabWarrior
             // 
             this.tabWarrior.Groups.Add(this.group1);
             this.tabWarrior.Groups.Add(this.group2);
+            this.tabWarrior.Groups.Add(this.group4);
+            this.tabWarrior.Groups.Add(this.group5);
             this.tabWarrior.Groups.Add(this.group3);
             this.tabWarrior.KeyTip = "C";
             this.tabWarrior.Label = "Warrior";
@@ -97,17 +106,66 @@
             this.group1.Items.Add(this.btnPasteFromExcel);
             this.group1.Items.Add(this.toggleAutoFit);
             this.group1.Items.Add(this.toggleWordWrap);
-            this.group1.Items.Add(this.btnRemoveEffects);
-            this.group1.Items.Add(this.btnLineBelow);
             this.group1.Items.Add(this.btnFormatBullets);
-            this.group1.Items.Add(this.btnFormatTable);
+            this.group1.Items.Add(this.btnLineBelow);
             this.group1.Items.Add(this.btnHeaderLine);
+            this.group1.Items.Add(this.menuSetLanguage);
             this.group1.Items.Add(this.label1);
             this.group1.Items.Add(this.editBoxGoToSlide);
-            this.group1.Items.Add(this.menuSetLanguage);
+            this.group1.Items.Add(this.btnFormatTable);
             this.group1.Items.Add(this.gallerySelectSimilar);
             this.group1.Label = "Tools and Formatting";
             this.group1.Name = "group1";
+            // 
+            // label1
+            // 
+            this.label1.Label = "Go To Slide:";
+            this.label1.Name = "label1";
+            // 
+            // editBoxGoToSlide
+            // 
+            this.editBoxGoToSlide.KeyTip = "GT";
+            this.editBoxGoToSlide.Label = "Go To Slide";
+            this.editBoxGoToSlide.Name = "editBoxGoToSlide";
+            this.editBoxGoToSlide.OfficeImageId = "SlideTransitionApplyToAll";
+            this.editBoxGoToSlide.ScreenTip = "Go to slide number";
+            this.editBoxGoToSlide.ShowImage = true;
+            this.editBoxGoToSlide.ShowLabel = false;
+            this.editBoxGoToSlide.SuperTip = "Enter slide number of slide to show and press enter";
+            this.editBoxGoToSlide.Text = null;
+            this.editBoxGoToSlide.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.editBoxGoToSlide_TextChanged);
+            // 
+            // group2
+            // 
+            this.group2.Items.Add(this.galleryAlign);
+            this.group2.Items.Add(this.btnSameHeight);
+            this.group2.Items.Add(this.btnSameWidth);
+            this.group2.Items.Add(this.btnSwapPos);
+            this.group2.Items.Add(this.btnPickUpPosition);
+            this.group2.Items.Add(this.btnApplyPosition);
+            this.group2.Items.Add(this.btnSplitShape);
+            this.group2.Label = "Size and Position";
+            this.group2.Name = "group2";
+            // 
+            // group4
+            // 
+            this.group4.Items.Add(this.btnRemoveEffects);
+            this.group4.Items.Add(this.btnRemoveNotes);
+            this.group4.Items.Add(this.btnRemoveAnimations);
+            this.group4.Label = "Cleanup";
+            this.group4.Name = "group4";
+            // 
+            // group3
+            // 
+            this.group3.Items.Add(this.btnFeedback);
+            this.group3.Items.Add(this.btnAbout);
+            this.group3.Items.Add(this.btnUpgrade);
+            this.group3.Name = "group3";
+            // 
+            // group5
+            // 
+            this.group5.Items.Add(this.btnPrintHandouts);
+            this.group5.Name = "group5";
             // 
             // galleryStyles
             // 
@@ -153,27 +211,53 @@
             this.btnPasteFromExcel.SuperTip = "Paste data from Excel while keeping the formatting of the PowerPoint table";
             this.btnPasteFromExcel.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnPasteFromExcel_Click);
             // 
-            // btnRemoveEffects
+            // toggleAutoFit
             // 
-            this.btnRemoveEffects.KeyTip = "RE";
-            this.btnRemoveEffects.Label = "Remove effects";
-            this.btnRemoveEffects.Name = "btnRemoveEffects";
-            this.btnRemoveEffects.OfficeImageId = "FormatPainter";
-            this.btnRemoveEffects.ScreenTip = "Remove all effects applied to the selected shape(s)";
-            this.btnRemoveEffects.ShowImage = true;
-            this.btnRemoveEffects.SuperTip = "Removes shadows, 3D rotations, and all other visual effects";
-            this.btnRemoveEffects.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnRemoveEffects_Click);
+            this.toggleAutoFit.Image = global::PowerPoint_Warrior.Properties.Resources.IconResize;
+            this.toggleAutoFit.KeyTip = "A";
+            this.toggleAutoFit.Label = "Toggle AutoFit";
+            this.toggleAutoFit.Name = "toggleAutoFit";
+            this.toggleAutoFit.ScreenTip = "Toggle shape AutoFit from \"do not AutoFit\" to \"resize shape to fit text\"";
+            this.toggleAutoFit.ShowImage = true;
+            this.toggleAutoFit.SuperTip = "If selected shape(s) are set to \"shrink text\" or have different AutoFit settings," +
+    " the icon will be grey (but the button still works)";
+            this.toggleAutoFit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.toggleAutoFit_Click);
             // 
-            // btnFormatTable
+            // toggleWordWrap
             // 
-            this.btnFormatTable.KeyTip = "T";
-            this.btnFormatTable.Label = "Format Table";
-            this.btnFormatTable.Name = "btnFormatTable";
-            this.btnFormatTable.OfficeImageId = "FormatAsTableGallery";
-            this.btnFormatTable.ScreenTip = "Format table to basic style";
-            this.btnFormatTable.ShowImage = true;
-            this.btnFormatTable.SuperTip = "Removes background colors and sets grid to thin lines";
-            this.btnFormatTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnFormatTable_Click);
+            this.toggleWordWrap.Image = global::PowerPoint_Warrior.Properties.Resources.IconWordwrap;
+            this.toggleWordWrap.KeyTip = "V";
+            this.toggleWordWrap.Label = "Toggle Word Wrap";
+            this.toggleWordWrap.Name = "toggleWordWrap";
+            this.toggleWordWrap.ScreenTip = "Toggle word wrapping in selected shapes";
+            this.toggleWordWrap.ShowImage = true;
+            this.toggleWordWrap.SuperTip = "If selected shapes have different word wrapping properties, the icon will be grey" +
+    " (but the button will still work)";
+            this.toggleWordWrap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.toggleWordWrap_Click);
+            // 
+            // btnFormatBullets
+            // 
+            this.btnFormatBullets.Image = global::PowerPoint_Warrior.Properties.Resources.IconFormatBulletList;
+            this.btnFormatBullets.KeyTip = "B";
+            this.btnFormatBullets.Label = "Format Bullets";
+            this.btnFormatBullets.Name = "btnFormatBullets";
+            this.btnFormatBullets.ScreenTip = "Format bullets to look professional";
+            this.btnFormatBullets.ShowImage = true;
+            this.btnFormatBullets.SuperTip = "Formatting can be done on several shapes at once, for one shape, or for selected " +
+    "text only";
+            this.btnFormatBullets.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnFormatBullets_Click);
+            // 
+            // btnLineBelow
+            // 
+            this.btnLineBelow.Image = global::PowerPoint_Warrior.Properties.Resources.IconLineBelow;
+            this.btnLineBelow.KeyTip = "LB";
+            this.btnLineBelow.Label = "Line Below";
+            this.btnLineBelow.Name = "btnLineBelow";
+            this.btnLineBelow.ScreenTip = "Insert a line below selected shape(s)";
+            this.btnLineBelow.ShowImage = true;
+            this.btnLineBelow.SuperTip = "Note that the line used will be the default line format for the current presentat" +
+    "ion";
+            this.btnLineBelow.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLineBelow_Click);
             // 
             // btnHeaderLine
             // 
@@ -183,27 +267,9 @@
             this.btnHeaderLine.Name = "btnHeaderLine";
             this.btnHeaderLine.ScreenTip = "Create / align header line";
             this.btnHeaderLine.ShowImage = true;
-            this.btnHeaderLine.SuperTip = "Creates a trailing header line to a text box, or if two objects are sele" +
-    "cted aligns the header line according to the object below";
+            this.btnHeaderLine.SuperTip = "Creates a trailing header line to a text box, or if two objects are selected alig" +
+    "ns the header line according to the object below";
             this.btnHeaderLine.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnHeaderLine_Click);
-            // 
-            // label1
-            // 
-            this.label1.Label = "Go To Slide:";
-            this.label1.Name = "label1";
-            // 
-            // editBoxGoToSlide
-            // 
-            this.editBoxGoToSlide.KeyTip = "GT";
-            this.editBoxGoToSlide.Label = "Go To Slide";
-            this.editBoxGoToSlide.Name = "editBoxGoToSlide";
-            this.editBoxGoToSlide.OfficeImageId = "SlideTransitionApplyToAll";
-            this.editBoxGoToSlide.ScreenTip = "Go to slide number";
-            this.editBoxGoToSlide.ShowImage = true;
-            this.editBoxGoToSlide.ShowLabel = false;
-            this.editBoxGoToSlide.SuperTip = "Enter slide number of slide to show and press enter";
-            this.editBoxGoToSlide.Text = null;
-            this.editBoxGoToSlide.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.editBoxGoToSlide_TextChanged);
             // 
             // menuSetLanguage
             // 
@@ -242,6 +308,17 @@
             this.btnSetLanguageFinnsh.ShowImage = true;
             this.btnSetLanguageFinnsh.Tag = "";
             this.btnSetLanguageFinnsh.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSetLanguage_Click);
+            // 
+            // btnFormatTable
+            // 
+            this.btnFormatTable.KeyTip = "T";
+            this.btnFormatTable.Label = "Format Table";
+            this.btnFormatTable.Name = "btnFormatTable";
+            this.btnFormatTable.OfficeImageId = "FormatAsTableGallery";
+            this.btnFormatTable.ScreenTip = "Format table to basic style";
+            this.btnFormatTable.ShowImage = true;
+            this.btnFormatTable.SuperTip = "Removes background colors and sets grid to thin lines";
+            this.btnFormatTable.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnFormatTable_Click);
             // 
             // gallerySelectSimilar
             // 
@@ -298,18 +375,6 @@
             // 
             this.buttonSelectSimilarVertical.Label = "On Same Vertical (+-15px)";
             this.buttonSelectSimilarVertical.Name = "buttonSelectSimilarVertical";
-            // 
-            // group2
-            // 
-            this.group2.Items.Add(this.galleryAlign);
-            this.group2.Items.Add(this.btnSameHeight);
-            this.group2.Items.Add(this.btnSameWidth);
-            this.group2.Items.Add(this.btnSwapPos);
-            this.group2.Items.Add(this.btnPickUpPosition);
-            this.group2.Items.Add(this.btnApplyPosition);
-            this.group2.Items.Add(this.btnSplitShape);
-            this.group2.Label = "Size and Position";
-            this.group2.Name = "group2";
             // 
             // galleryAlign
             // 
@@ -416,12 +481,44 @@
             this.btnSplitShape.SuperTip = "Split selected shape into equally sized shapes with one paragraph per shape";
             this.btnSplitShape.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSplitShape_Click);
             // 
-            // group3
+            // btnRemoveEffects
             // 
-            this.group3.Items.Add(this.btnFeedback);
-            this.group3.Items.Add(this.btnAbout);
-            this.group3.Items.Add(this.btnUpgrade);
-            this.group3.Name = "group3";
+            this.btnRemoveEffects.KeyTip = "RE";
+            this.btnRemoveEffects.Label = "Remove effects";
+            this.btnRemoveEffects.Name = "btnRemoveEffects";
+            this.btnRemoveEffects.OfficeImageId = "FormatPainter";
+            this.btnRemoveEffects.ScreenTip = "Remove all effects applied to the selected shape(s)";
+            this.btnRemoveEffects.ShowImage = true;
+            this.btnRemoveEffects.SuperTip = "Removes shadows, 3D rotations, and all other visual effects";
+            this.btnRemoveEffects.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnRemoveEffects_Click);
+            // 
+            // btnRemoveNotes
+            // 
+            this.btnRemoveNotes.Label = "Remove notes";
+            this.btnRemoveNotes.Name = "btnRemoveNotes";
+            this.btnRemoveNotes.OfficeImageId = "ReviewDeleteAllMarkupOnSlide";
+            this.btnRemoveNotes.ScreenTip = "Remove notes from all slides";
+            this.btnRemoveNotes.ShowImage = true;
+            this.btnRemoveNotes.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnRemoveNotes_Click);
+            // 
+            // btnRemoveAnimations
+            // 
+            this.btnRemoveAnimations.Label = "Remove animations";
+            this.btnRemoveAnimations.Name = "btnRemoveAnimations";
+            this.btnRemoveAnimations.OfficeImageId = "CDAudioStopTime";
+            this.btnRemoveAnimations.ScreenTip = "Remove animations from all slides";
+            this.btnRemoveAnimations.ShowImage = true;
+            this.btnRemoveAnimations.SuperTip = "Removes slide transitions as well as all shape animations";
+            this.btnRemoveAnimations.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnRemoveAnimations_Click);
+            // 
+            // btnPrintHandouts
+            // 
+            this.btnPrintHandouts.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnPrintHandouts.Label = "Print handouts";
+            this.btnPrintHandouts.Name = "btnPrintHandouts";
+            this.btnPrintHandouts.OfficeImageId = "FilePrint";
+            this.btnPrintHandouts.ShowImage = true;
+            this.btnPrintHandouts.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnPrintHandouts_Click);
             // 
             // btnFeedback
             // 
@@ -452,54 +549,6 @@
     "in@gmail.com";
             this.btnUpgrade.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnUpgrade_Click);
             // 
-            // toggleAutoFit
-            // 
-            this.toggleAutoFit.Image = global::PowerPoint_Warrior.Properties.Resources.IconResize;
-            this.toggleAutoFit.KeyTip = "A";
-            this.toggleAutoFit.Label = "Toggle AutoFit";
-            this.toggleAutoFit.Name = "toggleAutoFit";
-            this.toggleAutoFit.ScreenTip = "Toggle shape AutoFit from \"do not AutoFit\" to \"resize shape to fit text\"";
-            this.toggleAutoFit.ShowImage = true;
-            this.toggleAutoFit.SuperTip = "If selected shape(s) are set to \"shrink text\" or have different AutoFit settings," +
-    " the icon will be grey (but the button still works)";
-            this.toggleAutoFit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.toggleAutoFit_Click);
-            // 
-            // toggleWordWrap
-            // 
-            this.toggleWordWrap.Image = global::PowerPoint_Warrior.Properties.Resources.IconWordwrap;
-            this.toggleWordWrap.KeyTip = "V";
-            this.toggleWordWrap.Label = "Toggle Word Wrap";
-            this.toggleWordWrap.Name = "toggleWordWrap";
-            this.toggleWordWrap.ScreenTip = "Toggle word wrapping in selected shapes";
-            this.toggleWordWrap.ShowImage = true;
-            this.toggleWordWrap.SuperTip = "If selected shapes have different word wrapping properties, the icon will be grey" +
-    " (but the button will still work)";
-            this.toggleWordWrap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.toggleWordWrap_Click);
-            // 
-            // btnLineBelow
-            // 
-            this.btnLineBelow.Image = global::PowerPoint_Warrior.Properties.Resources.IconLineBelow;
-            this.btnLineBelow.KeyTip = "LB";
-            this.btnLineBelow.Label = "Line Below";
-            this.btnLineBelow.Name = "btnLineBelow";
-            this.btnLineBelow.ScreenTip = "Insert a line below selected shape(s)";
-            this.btnLineBelow.ShowImage = true;
-            this.btnLineBelow.SuperTip = "Note that the line used will be the default line format for the current presentat" +
-    "ion";
-            this.btnLineBelow.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLineBelow_Click);
-            // 
-            // btnFormatBullets
-            // 
-            this.btnFormatBullets.Image = global::PowerPoint_Warrior.Properties.Resources.IconFormatBulletList;
-            this.btnFormatBullets.KeyTip = "B";
-            this.btnFormatBullets.Label = "Format Bullets";
-            this.btnFormatBullets.Name = "btnFormatBullets";
-            this.btnFormatBullets.ScreenTip = "Format bullets to look professional";
-            this.btnFormatBullets.ShowImage = true;
-            this.btnFormatBullets.SuperTip = "Formatting can be done on several shapes at once, for one shape, or for selected " +
-    "text only";
-            this.btnFormatBullets.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnFormatBullets_Click);
-            // 
             // RibbonWarrior
             // 
             this.Name = "RibbonWarrior";
@@ -512,8 +561,12 @@
             this.group1.PerformLayout();
             this.group2.ResumeLayout(false);
             this.group2.PerformLayout();
+            this.group4.ResumeLayout(false);
+            this.group4.PerformLayout();
             this.group3.ResumeLayout(false);
             this.group3.PerformLayout();
+            this.group5.ResumeLayout(false);
+            this.group5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -561,6 +614,11 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnApplyPosition;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnSplitShape;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnHeaderLine;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group4;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnRemoveNotes;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnRemoveAnimations;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group5;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnPrintHandouts;
     }
 
     partial class ThisRibbonCollection

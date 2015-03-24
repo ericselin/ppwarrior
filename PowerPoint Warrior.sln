@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22310.1
+VisualStudioVersion = 14.0.22512.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerPoint Warrior", "PowerPoint Warrior\PowerPoint Warrior.csproj", "{D73A2E0A-E16F-43A1-84FF-A34BE28C9D94}"
 	ProjectSection(ProjectDependencies) = postProject
 		{28CCE01C-D9AD-4D05-9242-8A76F4792A49} = {28CCE01C-D9AD-4D05-9242-8A76F4792A49}
-		{D08AFA60-A950-4236-B1A8-F1AD7E2CAD8F} = {D08AFA60-A950-4236-B1A8-F1AD7E2CAD8F}
+		{E79E6240-4954-41D0-BCE4-573B800EF006} = {E79E6240-4954-41D0-BCE4-573B800EF006}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warrior Common", "Warrior Common\Warrior Common.csproj", "{D08AFA60-A950-4236-B1A8-F1AD7E2CAD8F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Style Manager", "Style Manager\Style Manager.csproj", "{28CCE01C-D9AD-4D05-9242-8A76F4792A49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analytics", "..\Analytics.NET\Analytics\Analytics.csproj", "{E79E6240-4954-41D0-BCE4-573B800EF006}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Setup", "Setup\Setup.csproj", "{5508242C-D97B-4281-83A4-9BBFF2F3AA8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +25,18 @@ Global
 		{D73A2E0A-E16F-43A1-84FF-A34BE28C9D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D73A2E0A-E16F-43A1-84FF-A34BE28C9D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D73A2E0A-E16F-43A1-84FF-A34BE28C9D94}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D08AFA60-A950-4236-B1A8-F1AD7E2CAD8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D08AFA60-A950-4236-B1A8-F1AD7E2CAD8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D08AFA60-A950-4236-B1A8-F1AD7E2CAD8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D08AFA60-A950-4236-B1A8-F1AD7E2CAD8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{28CCE01C-D9AD-4D05-9242-8A76F4792A49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{28CCE01C-D9AD-4D05-9242-8A76F4792A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28CCE01C-D9AD-4D05-9242-8A76F4792A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28CCE01C-D9AD-4D05-9242-8A76F4792A49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E79E6240-4954-41D0-BCE4-573B800EF006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E79E6240-4954-41D0-BCE4-573B800EF006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E79E6240-4954-41D0-BCE4-573B800EF006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E79E6240-4954-41D0-BCE4-573B800EF006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5508242C-D97B-4281-83A4-9BBFF2F3AA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5508242C-D97B-4281-83A4-9BBFF2F3AA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5508242C-D97B-4281-83A4-9BBFF2F3AA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5508242C-D97B-4281-83A4-9BBFF2F3AA8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

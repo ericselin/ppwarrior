@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace WarriorCommon
+namespace PowerPoint_Warrior
 {
     public static class Email
     {
@@ -35,15 +35,15 @@ namespace WarriorCommon
                 return;
             }
 
-            Microsoft.Office.Interop.Outlook.MailItem eMail =
-                (Microsoft.Office.Interop.Outlook.MailItem)outlook.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
+			Outlook.MailItem eMail =
+                (Outlook.MailItem)outlook.CreateItem(Outlook.OlItemType.olMailItem);
             eMail.Subject = subject;
-            eMail.To = "eric.selin@gmail.com";
-            eMail.Importance = Microsoft.Office.Interop.Outlook.OlImportance.olImportanceLow;
+            eMail.To = "eric@ppwarrior.com";
+            eMail.Importance = Outlook.OlImportance.olImportanceLow;
             eMail.BodyFormat = Outlook.OlBodyFormat.olFormatRichText;
             eMail.Body = "Please write feedback here.\nBug reports, new feature requests and all sorts of other feedback welcome!";
 
-            ((Microsoft.Office.Interop.Outlook._MailItem)eMail).Display();
+			eMail.Display();
         }
     }
 }
