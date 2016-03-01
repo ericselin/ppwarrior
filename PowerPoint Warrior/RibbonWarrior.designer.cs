@@ -37,12 +37,6 @@
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl1 = this.Factory.CreateRibbonDropDownItem();
             this.tabWarrior = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.label1 = this.Factory.CreateRibbonLabel();
-            this.editBoxGoToSlide = this.Factory.CreateRibbonEditBox();
-            this.group2 = this.Factory.CreateRibbonGroup();
-            this.group4 = this.Factory.CreateRibbonGroup();
-            this.group3 = this.Factory.CreateRibbonGroup();
-            this.group5 = this.Factory.CreateRibbonGroup();
             this.galleryStyles = this.Factory.CreateRibbonGallery();
             this.btnSaveStyle = this.Factory.CreateRibbonButton();
             this.btnDeleteStyle = this.Factory.CreateRibbonButton();
@@ -56,6 +50,8 @@
             this.btnSetAlltext = this.Factory.CreateRibbonButton();
             this.btnSetLanguageEnglish = this.Factory.CreateRibbonButton();
             this.btnSetLanguageFinnsh = this.Factory.CreateRibbonButton();
+            this.label1 = this.Factory.CreateRibbonLabel();
+            this.editBoxGoToSlide = this.Factory.CreateRibbonEditBox();
             this.btnFormatTable = this.Factory.CreateRibbonButton();
             this.gallerySelectSimilar = this.Factory.CreateRibbonGallery();
             this.buttonSelectSimilarColorLine = this.Factory.CreateRibbonButton();
@@ -65,6 +61,7 @@
             this.buttonSelectSimilarHeight = this.Factory.CreateRibbonButton();
             this.buttonSelectSimilarHorizontal = this.Factory.CreateRibbonButton();
             this.buttonSelectSimilarVertical = this.Factory.CreateRibbonButton();
+            this.group2 = this.Factory.CreateRibbonGroup();
             this.galleryAlign = this.Factory.CreateRibbonGallery();
             this.buttonAlignTopToBottom = this.Factory.CreateRibbonButton();
             this.buttonAlignLeftToRight = this.Factory.CreateRibbonButton();
@@ -74,10 +71,11 @@
             this.btnPickUpPosition = this.Factory.CreateRibbonButton();
             this.btnApplyPosition = this.Factory.CreateRibbonButton();
             this.btnSplitShape = this.Factory.CreateRibbonButton();
+            this.group4 = this.Factory.CreateRibbonGroup();
             this.btnRemoveEffects = this.Factory.CreateRibbonButton();
             this.btnRemoveNotes = this.Factory.CreateRibbonButton();
             this.btnRemoveAnimations = this.Factory.CreateRibbonButton();
-            this.btnPrintHandouts = this.Factory.CreateRibbonButton();
+            this.group3 = this.Factory.CreateRibbonGroup();
             this.btnFeedback = this.Factory.CreateRibbonButton();
             this.btnAbout = this.Factory.CreateRibbonButton();
             this.btnUpgrade = this.Factory.CreateRibbonButton();
@@ -86,7 +84,6 @@
             this.group2.SuspendLayout();
             this.group4.SuspendLayout();
             this.group3.SuspendLayout();
-            this.group5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabWarrior
@@ -94,7 +91,6 @@
             this.tabWarrior.Groups.Add(this.group1);
             this.tabWarrior.Groups.Add(this.group2);
             this.tabWarrior.Groups.Add(this.group4);
-            this.tabWarrior.Groups.Add(this.group5);
             this.tabWarrior.Groups.Add(this.group3);
             this.tabWarrior.KeyTip = "C";
             this.tabWarrior.Label = "Warrior";
@@ -116,56 +112,6 @@
             this.group1.Items.Add(this.gallerySelectSimilar);
             this.group1.Label = "Tools and Formatting";
             this.group1.Name = "group1";
-            // 
-            // label1
-            // 
-            this.label1.Label = "Go To Slide:";
-            this.label1.Name = "label1";
-            // 
-            // editBoxGoToSlide
-            // 
-            this.editBoxGoToSlide.KeyTip = "GT";
-            this.editBoxGoToSlide.Label = "Go To Slide";
-            this.editBoxGoToSlide.Name = "editBoxGoToSlide";
-            this.editBoxGoToSlide.OfficeImageId = "SlideTransitionApplyToAll";
-            this.editBoxGoToSlide.ScreenTip = "Go to slide number";
-            this.editBoxGoToSlide.ShowImage = true;
-            this.editBoxGoToSlide.ShowLabel = false;
-            this.editBoxGoToSlide.SuperTip = "Enter slide number of slide to show and press enter";
-            this.editBoxGoToSlide.Text = null;
-            this.editBoxGoToSlide.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.editBoxGoToSlide_TextChanged);
-            // 
-            // group2
-            // 
-            this.group2.Items.Add(this.galleryAlign);
-            this.group2.Items.Add(this.btnSameHeight);
-            this.group2.Items.Add(this.btnSameWidth);
-            this.group2.Items.Add(this.btnSwapPos);
-            this.group2.Items.Add(this.btnPickUpPosition);
-            this.group2.Items.Add(this.btnApplyPosition);
-            this.group2.Items.Add(this.btnSplitShape);
-            this.group2.Label = "Size and Position";
-            this.group2.Name = "group2";
-            // 
-            // group4
-            // 
-            this.group4.Items.Add(this.btnRemoveEffects);
-            this.group4.Items.Add(this.btnRemoveNotes);
-            this.group4.Items.Add(this.btnRemoveAnimations);
-            this.group4.Label = "Cleanup";
-            this.group4.Name = "group4";
-            // 
-            // group3
-            // 
-            this.group3.Items.Add(this.btnFeedback);
-            this.group3.Items.Add(this.btnAbout);
-            this.group3.Items.Add(this.btnUpgrade);
-            this.group3.Name = "group3";
-            // 
-            // group5
-            // 
-            this.group5.Items.Add(this.btnPrintHandouts);
-            this.group5.Name = "group5";
             // 
             // galleryStyles
             // 
@@ -309,6 +255,24 @@
             this.btnSetLanguageFinnsh.Tag = "";
             this.btnSetLanguageFinnsh.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSetLanguage_Click);
             // 
+            // label1
+            // 
+            this.label1.Label = "Go To Slide:";
+            this.label1.Name = "label1";
+            // 
+            // editBoxGoToSlide
+            // 
+            this.editBoxGoToSlide.KeyTip = "GT";
+            this.editBoxGoToSlide.Label = "Go To Slide";
+            this.editBoxGoToSlide.Name = "editBoxGoToSlide";
+            this.editBoxGoToSlide.OfficeImageId = "SlideTransitionApplyToAll";
+            this.editBoxGoToSlide.ScreenTip = "Go to slide number";
+            this.editBoxGoToSlide.ShowImage = true;
+            this.editBoxGoToSlide.ShowLabel = false;
+            this.editBoxGoToSlide.SuperTip = "Enter slide number of slide to show and press enter";
+            this.editBoxGoToSlide.Text = null;
+            this.editBoxGoToSlide.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.editBoxGoToSlide_TextChanged);
+            // 
             // btnFormatTable
             // 
             this.btnFormatTable.KeyTip = "T";
@@ -375,6 +339,18 @@
             // 
             this.buttonSelectSimilarVertical.Label = "On Same Vertical (+-15px)";
             this.buttonSelectSimilarVertical.Name = "buttonSelectSimilarVertical";
+            // 
+            // group2
+            // 
+            this.group2.Items.Add(this.galleryAlign);
+            this.group2.Items.Add(this.btnSameHeight);
+            this.group2.Items.Add(this.btnSameWidth);
+            this.group2.Items.Add(this.btnSwapPos);
+            this.group2.Items.Add(this.btnPickUpPosition);
+            this.group2.Items.Add(this.btnApplyPosition);
+            this.group2.Items.Add(this.btnSplitShape);
+            this.group2.Label = "Size and Position";
+            this.group2.Name = "group2";
             // 
             // galleryAlign
             // 
@@ -481,6 +457,14 @@
             this.btnSplitShape.SuperTip = "Split selected shape into equally sized shapes with one paragraph per shape";
             this.btnSplitShape.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSplitShape_Click);
             // 
+            // group4
+            // 
+            this.group4.Items.Add(this.btnRemoveEffects);
+            this.group4.Items.Add(this.btnRemoveNotes);
+            this.group4.Items.Add(this.btnRemoveAnimations);
+            this.group4.Label = "Cleanup";
+            this.group4.Name = "group4";
+            // 
             // btnRemoveEffects
             // 
             this.btnRemoveEffects.KeyTip = "RE";
@@ -511,14 +495,12 @@
             this.btnRemoveAnimations.SuperTip = "Removes slide transitions as well as all shape animations";
             this.btnRemoveAnimations.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnRemoveAnimations_Click);
             // 
-            // btnPrintHandouts
+            // group3
             // 
-            this.btnPrintHandouts.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnPrintHandouts.Label = "Print handouts";
-            this.btnPrintHandouts.Name = "btnPrintHandouts";
-            this.btnPrintHandouts.OfficeImageId = "FilePrint";
-            this.btnPrintHandouts.ShowImage = true;
-            this.btnPrintHandouts.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnPrintHandouts_Click);
+            this.group3.Items.Add(this.btnFeedback);
+            this.group3.Items.Add(this.btnAbout);
+            this.group3.Items.Add(this.btnUpgrade);
+            this.group3.Name = "group3";
             // 
             // btnFeedback
             // 
@@ -565,8 +547,6 @@
             this.group4.PerformLayout();
             this.group3.ResumeLayout(false);
             this.group3.PerformLayout();
-            this.group5.ResumeLayout(false);
-            this.group5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -617,8 +597,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group4;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnRemoveNotes;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnRemoveAnimations;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group5;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnPrintHandouts;
     }
 
     partial class ThisRibbonCollection

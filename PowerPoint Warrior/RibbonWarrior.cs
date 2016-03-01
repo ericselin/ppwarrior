@@ -142,7 +142,6 @@ namespace PowerPoint_Warrior
                 editBoxGoToSlide.Enabled = licenseValid;
                 btnRemoveAnimations.Enabled = licenseValid;
                 btnRemoveNotes.Enabled = licenseValid;
-                btnPrintHandouts.Enabled = licenseValid;
 
 				#region Enable all buttons
 				// Uncomment when taking screenshots
