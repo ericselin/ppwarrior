@@ -238,7 +238,7 @@ namespace PowerPoint_Warrior
             {
                 if (slide.HasNotesPage == Office.MsoTriState.msoTrue)
                 {
-                    PowerPoint.Shape notes = getPlaceholder(PowerPoint.PpPlaceholderType.ppPlaceholderBody, slide.Shapes);
+                    PowerPoint.Shape notes = getPlaceholder(PowerPoint.PpPlaceholderType.ppPlaceholderBody, slide.NotesPage.Shapes);
                     if (notes.HasTextFrame == Office.MsoTriState.msoTrue)
                     {
                         notes.TextFrame.DeleteText();
