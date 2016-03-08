@@ -5,6 +5,6 @@ ECHO to Azure blob storage
 
 PAUSE
 
-"c:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\AzCopy.exe" "..\..\Publish\PowerPoint Warrior" https://ppwarrior.blob.core.windows.net/install /DestKey:bjBXjyOJHOXamFjRAjn5YGLr9xfvpZv4fxVb8SZ+JY5GFvmjWFKIGlQD4rowpTrbopsiev4v320F8N6osuBk0A== /S
+"c:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\AzCopy.exe" /Source:"..\..\Publish\PowerPoint Warrior" /Dest:https://ppwarrior.blob.core.windows.net/install /DestKey:bjBXjyOJHOXamFjRAjn5YGLr9xfvpZv4fxVb8SZ+JY5GFvmjWFKIGlQD4rowpTrbopsiev4v320F8N6osuBk0A== /S
 
 PAUSE
