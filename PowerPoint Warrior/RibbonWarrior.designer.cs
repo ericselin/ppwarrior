@@ -73,8 +73,6 @@
             this.btnRemoveAnimations = this.Factory.CreateRibbonButton();
             this.group3 = this.Factory.CreateRibbonGroup();
             this.btnFeedback = this.Factory.CreateRibbonButton();
-            this.btnAbout = this.Factory.CreateRibbonButton();
-            this.btnUpgrade = this.Factory.CreateRibbonButton();
             this.tabWarrior.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -461,8 +459,6 @@
             // group3
             // 
             this.group3.Items.Add(this.btnFeedback);
-            this.group3.Items.Add(this.btnAbout);
-            this.group3.Items.Add(this.btnUpgrade);
             this.group3.Name = "group3";
             // 
             // btnFeedback
@@ -474,25 +470,6 @@
             this.btnFeedback.ShowImage = true;
             this.btnFeedback.SuperTip = "Thank you for your feedback - whatever it may be!";
             this.btnFeedback.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnFeedback_Click);
-            // 
-            // btnAbout
-            // 
-            this.btnAbout.Label = "Settings and About";
-            this.btnAbout.Name = "btnAbout";
-            this.btnAbout.OfficeImageId = "Info";
-            this.btnAbout.ShowImage = true;
-            this.btnAbout.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAbout_Click);
-            // 
-            // btnUpgrade
-            // 
-            this.btnUpgrade.Label = "Upgrade";
-            this.btnUpgrade.Name = "btnUpgrade";
-            this.btnUpgrade.OfficeImageId = "ViewOnlineConnection";
-            this.btnUpgrade.ScreenTip = "Upgrade product for more functionality";
-            this.btnUpgrade.ShowImage = true;
-            this.btnUpgrade.SuperTip = "If you wish to upgrade to a paid version, you can also send an e-mail to eric.sel" +
-    "in@gmail.com";
-            this.btnUpgrade.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnUpgrade_Click);
             // 
             // RibbonWarrior
             // 
@@ -527,8 +504,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnFeedback;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton toggleAutoFit;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton toggleWordWrap;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnAbout;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnUpgrade;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnRemoveEffects;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLineBelow;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnFormatBullets;

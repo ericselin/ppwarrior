@@ -8,10 +8,6 @@ namespace PowerPoint_Warrior
 {
     public partial class RibbonWarrior
     {
-        string officeVersion;
-        string userEmail;
-        UsageLogger logger;
-        bool licenseValid;
         // position used by pick up / apply pos.
         PowerPointPosition position;
 
@@ -19,44 +15,13 @@ namespace PowerPoint_Warrior
         {
             try
             {
-                // get version and if 2013, make tab CAPS
-                officeVersion = Globals.ThisAddIn.Application.Version;
-                if (float.Parse(officeVersion, System.Globalization.CultureInfo.InvariantCulture) >= 15)
-                    tabWarrior.Label = tabWarrior.Label.ToUpper();
-                // set user email and license
-                userEmail = Properties.Settings.Default.UserEmail;
-                // create logger instance
-                logger = new UsageLogger();
-                // Check license (valid edition and e-mail inserted) - disables controls if not valid
-                checkLicense();
-                // if no e-mail, show settings box
-                if (string.IsNullOrEmpty(userEmail))
-                    btnAbout_Click(null, null);
-                // track statup
-                logger.PostUsage("Powerpoint started", null);
                 // Set event handler to check which buttons should be enabled
                 Globals.ThisAddIn.Application.WindowSelectionChange += Application_WindowSelectionChange;
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
-        }
-
-        /// <summary>
-        /// Checks whether email inserted and trial valid
-        /// Will set controls to inactive if license not valid
-        /// </summary>
-        private void checkLicense()
-        {
-            // if trial date does not exist, set it 30 days from now
-            if (Properties.Settings.Default.ValidUntil == DateTime.MinValue)
-            {
-                Properties.Settings.Default.ValidUntil = DateTimeOffset.Now.AddDays(30).DateTime;
-            }
-            // license is valid if we have an e-mail AND trial is still valid
-            licenseValid = !string.IsNullOrEmpty(userEmail) &&
-                Properties.Settings.Default.ValidUntil > DateTime.Now;
         }
 
         private void Application_WindowSelectionChange(PowerPoint.Selection Sel)
@@ -68,7 +33,7 @@ namespace PowerPoint_Warrior
                 var selection = new SelectionType();
 
                 // Only check the selection if we are in the slide pane and license valid
-                if (window.ActivePane.ViewType == PowerPoint.PpViewType.ppViewSlide && licenseValid)
+                if (window.ActivePane.ViewType == PowerPoint.PpViewType.ppViewSlide)
                 {
                     // Essentially exceptions on selection types should not occur, since buttons should be
                     // enable only when the correct selection is made by the user.
@@ -129,11 +94,6 @@ namespace PowerPoint_Warrior
                 btnPasteFromExcel.Enabled = selection.TableText;
                 // These when one table
                 btnFormatTable.Enabled = selection.TableOne;
-                // These are always shown, except for when license invalid
-                menuSetLanguage.Enabled = licenseValid;
-                editBoxGoToSlide.Enabled = licenseValid;
-                btnRemoveAnimations.Enabled = licenseValid;
-                btnRemoveNotes.Enabled = licenseValid;
 
 				#region Enable all buttons
 				// Uncomment when taking screenshots
@@ -158,7 +118,7 @@ namespace PowerPoint_Warrior
 			}
 			catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail, false);
+                Exceptions.Handle(ex, false);
             }
         }
 
@@ -228,20 +188,6 @@ namespace PowerPoint_Warrior
             }
         }
 
-        private void logUsage(object sender, RibbonControlEventArgs e)
-        {
-            if (Properties.Settings.Default.EnableLogging)
-            {
-                // Get label text, reflection from http://stackoverflow.com/questions/1196991/get-property-value-from-string-using-reflection-in-c-sharp
-                string action = sender.GetType().GetProperty("Label") != null ?
-                    sender.GetType().GetProperty("Label").GetValue(sender, null).ToString() :
-                    e.Control.Id;
-                // Log usage
-                if (logger != null)
-                    logger.PostUsage("Feature used", action);
-            }
-        }
-
         #endregion
 
         private void btnPasteFromExcel_Click(object sender, RibbonControlEventArgs e)
@@ -250,12 +196,10 @@ namespace PowerPoint_Warrior
             {
                 PowerPoint.Table pptTable = Globals.ThisAddIn.Application.ActiveWindow.Selection.ShapeRange[1].Table;
                 ToolsAndFormatting.PasteFromExcel(pptTable);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -267,12 +211,10 @@ namespace PowerPoint_Warrior
                 ToolsAndFormatting.ToggleAutoFit(selection, ((RibbonToggleButton)sender).Checked);
                 // After this, we need to re-check the controls
                 checkSelectionBoxes(selection);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -284,12 +226,10 @@ namespace PowerPoint_Warrior
                 ToolsAndFormatting.ToggleWordWrap(selection, ((RibbonToggleButton)sender).Checked);
                 // After this, we need to re-check the controls
                 checkSelectionBoxes(selection);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -300,12 +240,10 @@ namespace PowerPoint_Warrior
                 PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
                 HeightOrWidth heightOrWidth = e.Control.Id == btnSameHeight.Id ? HeightOrWidth.Height : HeightOrWidth.Width;
                 ToolsSizeAndPosition.SameHeightOrWidth(selection, heightOrWidth);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -315,53 +253,10 @@ namespace PowerPoint_Warrior
             {
                 PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
                 ToolsSizeAndPosition.SwapPositions(selection);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
-            }
-        }
-
-        private void btnAbout_Click(object sender, RibbonControlEventArgs e)
-        {
-            try
-            {
-                // Get window pointer
-                IntPtr pointer = new IntPtr(Globals.ThisAddIn.Application.HWND);
-                IWin32Window w = Control.FromHandle(pointer);
-
-                using (FormSettings settings = new FormSettings())
-                {
-                    // show the dialog
-                    settings.ShowDialog(w);
-                    // if email now exists, update user identity
-                    if (!string.IsNullOrEmpty(Properties.Settings.Default.UserEmail))
-                    {
-                        userEmail = Properties.Settings.Default.UserEmail;
-                        logger.UpdateIdentity(userEmail, Properties.Settings.Default.Company);
-                    }
-                }
-
-                // validate license again, since it might have been updated
-                checkLicense();
-
-                // If this was called from code, assume it was the initial e-mail prompt
-                if (sender == null)
-                {
-                    logger.PostUsage("Showed initial e-mail prompt");
-                }
-                else
-                {
-                    logUsage(sender, e);
-                    // re-evaluate which buttons to show, since license may have been updated
-                    Application_WindowSelectionChange(Globals.ThisAddIn.Application.ActiveWindow.Selection);
-                }
-            }
-            catch (Exception ex)
-            {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -373,20 +268,7 @@ namespace PowerPoint_Warrior
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
-            }
-        }
-
-        private void btnUpgrade_Click(object sender, RibbonControlEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process.Start
-                        ("http://www.ppwarrior.com/?utm_source=in-app&utm_medium=v1&utm_campaign=upgrade");
-            }
-            catch (Exception ex)
-            {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -396,12 +278,10 @@ namespace PowerPoint_Warrior
             {
                 PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
                 ToolsAndFormatting.RemoveEffects(selection);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -411,12 +291,10 @@ namespace PowerPoint_Warrior
             {
                 PowerPoint.DocumentWindow window = Globals.ThisAddIn.Application.ActiveWindow;
                 ToolsAndFormatting.LineBelow(window);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -426,12 +304,10 @@ namespace PowerPoint_Warrior
             {
                 PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
                 ToolsAndFormatting.FormatBullets(selection);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -442,12 +318,10 @@ namespace PowerPoint_Warrior
                 PowerPoint.Table pptTable = Globals.ThisAddIn.Application.ActiveWindow.Selection.ShapeRange[1].Table;
                 ToolsAndFormatting.FormatTable(pptTable);
 
-                logUsage(sender, e);
-
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -459,12 +333,10 @@ namespace PowerPoint_Warrior
                     ToolsAndFormatting.SetLanguage(Globals.ThisAddIn.Application.ActivePresentation.Slides, Office.MsoLanguageID.msoLanguageIDEnglishUS);
                 else if (e.Control.Id == btnSetLanguageFinnsh.Id)
                     ToolsAndFormatting.SetLanguage(Globals.ThisAddIn.Application.ActivePresentation.Slides, Office.MsoLanguageID.msoLanguageIDFinnish);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -507,12 +379,10 @@ namespace PowerPoint_Warrior
                     return;
 
                 ToolsSelection.SelectSimilar(selection, selectType);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -531,12 +401,10 @@ namespace PowerPoint_Warrior
                     return;
 
                 ToolsSizeAndPosition.AlignTopToBottom(selection, topLeft);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -546,12 +414,10 @@ namespace PowerPoint_Warrior
             {
                 PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
                 position = ToolsSizeAndPosition.PickUpPosition(selection);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -561,12 +427,10 @@ namespace PowerPoint_Warrior
             {
                 PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
                 ToolsSizeAndPosition.ApplyPosition(selection, position);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -576,12 +440,10 @@ namespace PowerPoint_Warrior
             {
                 PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
                 ToolsSizeAndPosition.SplitObject(selection);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -594,12 +456,10 @@ namespace PowerPoint_Warrior
                 ToolsSelection.GoToSlide(view, slideNumberString);
 
                 editBoxGoToSlide.Text = "";
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -610,12 +470,10 @@ namespace PowerPoint_Warrior
                 PowerPoint.DocumentWindow window = Globals.ThisAddIn.Application.ActiveWindow;
 
                 ToolsGuidelines.HeaderLine(window);
-
-                logUsage(sender, e);
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -626,12 +484,10 @@ namespace PowerPoint_Warrior
                 PowerPoint.Presentation presentation = Globals.ThisAddIn.Application.ActivePresentation;
                 ToolsAndFormatting.RemoveNotes(presentation);
 
-                logUsage(sender, e);
-
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
 
@@ -642,27 +498,10 @@ namespace PowerPoint_Warrior
                 PowerPoint.Presentation presentation = Globals.ThisAddIn.Application.ActivePresentation;
                 ToolsAndFormatting.RemoveAnimations(presentation);
 
-                logUsage(sender, e);
-
             }
             catch (Exception ex)
             {
-                Exceptions.Handle(ex, officeVersion, userEmail);
-            }
-        }
-
-        private void btnPrintHandouts_Click(object sender, RibbonControlEventArgs e)
-        {
-            try
-            {
-                PowerPoint.Presentation presentation = Globals.ThisAddIn.Application.ActivePresentation;
-                ToolsAndFormatting.PrintHandouts(presentation);
-
-                logUsage(sender, e);
-            }
-            catch (Exception ex)
-            {
-                Exceptions.Handle(ex, officeVersion, userEmail);
+                Exceptions.Handle(ex);
             }
         }
     }
