@@ -1,6 +1,4 @@
-﻿using Mindscape.Raygun4Net;
-using Mindscape.Raygun4Net.Messages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

@@ -3,14 +3,11 @@ using Microsoft.Office.Tools.Ribbon;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using Office = Microsoft.Office.Core;
 using System.Windows.Forms;
-using WarriorCommon;
-using Style_Manager;
 
 namespace PowerPoint_Warrior
 {
     public partial class RibbonWarrior
     {
-        Style_Manager.StyleLogic styles;
         string officeVersion;
         string userEmail;
         UsageLogger logger;
@@ -37,10 +34,6 @@ namespace PowerPoint_Warrior
                     btnAbout_Click(null, null);
                 // track statup
                 logger.PostUsage("Powerpoint started", null);
-                // get style manager
-                styles = new StyleLogic();
-                // refresh styles list
-                refreshStyles();
                 // Set event handler to check which buttons should be enabled
                 Globals.ThisAddIn.Application.WindowSelectionChange += Application_WindowSelectionChange;
             }
@@ -129,7 +122,6 @@ namespace PowerPoint_Warrior
                 // These when shapes or text (text implicitly means one shape)
                 toggleAutoFit.Enabled = selection.ShapesOrText;
                 toggleWordWrap.Enabled = selection.ShapesOrText;
-                galleryStyles.Enabled = selection.ShapesOrText;
                 btnLineBelow.Enabled = selection.ShapesOrText;
                 btnFormatBullets.Enabled = selection.ShapesOrText;
                 btnRemoveEffects.Enabled = selection.ShapesOrText;
@@ -323,80 +315,6 @@ namespace PowerPoint_Warrior
             {
                 PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
                 ToolsSizeAndPosition.SwapPositions(selection);
-
-                logUsage(sender, e);
-            }
-            catch (Exception ex)
-            {
-                Exceptions.Handle(ex, officeVersion, userEmail);
-            }
-        }
-
-        private void galleryStyles_ButtonClick(object sender, RibbonControlEventArgs e)
-        {
-            try
-            {
-                if (((RibbonButton)sender).Id == btnSaveStyle.Id)
-                {
-                    PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
-                    if (!((selection.Type == PowerPoint.PpSelectionType.ppSelectionText || selection.Type == PowerPoint.PpSelectionType.ppSelectionShapes) &&
-                        selection.ShapeRange.Count == 1))
-                    {
-                        MessageBox.Show("Please select at least one shape to apply style to.");
-                        return;
-                    }
-
-                    styles.SaveStyle(selection);
-                }
-                else
-                {
-                    styles.DeleteStyle(Globals.ThisAddIn.Application);
-                }
-                refreshStyles();
-
-                logUsage(sender, e);
-            }
-            catch (Exception ex)
-            {
-                Exceptions.Handle(ex, officeVersion, userEmail);
-            }
-        }
-
-        private void refreshStyles()
-        {
-            // clear everything
-            galleryStyles.Items.Clear();
-            // if there are no styles, insert note
-            if (styles.Styles == null || styles.Styles.Count == 0)
-            {
-                RibbonDropDownItem ddi = Factory.CreateRibbonDropDownItem();
-                ddi.Label = "(no styles)";
-                galleryStyles.Items.Add(ddi);
-                return;
-            }
-
-            foreach (var style in styles.Styles)
-            {
-                RibbonDropDownItem ddi = Factory.CreateRibbonDropDownItem();
-                ddi.Label = style.Key;
-                ddi.Tag = style.Key;
-                ddi.OfficeImageId = "CellStylesGallery";
-                galleryStyles.Items.Add(ddi);
-            }
-        }
-
-        private void galleryStyles_Click(object sender, RibbonControlEventArgs e)
-        {
-            try
-            {
-                PowerPoint.Selection selection = Globals.ThisAddIn.Application.ActiveWindow.Selection;
-
-                string styleName = ((RibbonGallery)sender).SelectedItem.Label;
-                // if this is the (no styles) -style, just return and don't apply anything
-                if (styleName == "(no styles)")
-                    return;
-                // apply style
-                styles.ApplyStyle(styleName, selection);
 
                 logUsage(sender, e);
             }

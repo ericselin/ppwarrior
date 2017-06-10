@@ -140,20 +140,14 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="Analytics.NET, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Analytics.2.0.3\lib\Analytics.NET.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Outlook, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Mindscape.Raygun4Net, Version=5.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mindscape.Raygun4Net.5.1.1\lib\net40\Mindscape.Raygun4Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mindscape.Raygun4Net4, Version=5.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mindscape.Raygun4Net.5.1.1\lib\net40\Mindscape.Raygun4Net4.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -267,6 +261,7 @@
     <None Include="app.config" />
     <None Include="CodeSignCert.pfx" />
     <None Include="packages.config" />
+    <None Include="PowerPoint Warrior_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -300,16 +295,6 @@
     <None Include="Resources\IconWordwrapGrey.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Analytics.NET\Analytics\Analytics.csproj">
-      <Project>{e79e6240-4954-41d0-bce4-573b800ef006}</Project>
-      <Name>Analytics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Style Manager\Style Manager.csproj">
-      <Project>{28cce01c-d9ad-4d05-9242-8a76f4792a49}</Project>
-      <Name>Style Manager</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\buttonFormatBulletList.Image.png" />
   </ItemGroup>
   <ItemGroup>
@@ -335,10 +320,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>CodeSignCert.pfx</ManifestKeyFile>
+    <ManifestKeyFile>PowerPoint Warrior_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>AA72709102BA9705B95B7C4181BD5E64DE2F9E6D</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3166F08C8708BB42AC02B7089E15B56CEEEC3EB0</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -372,7 +357,7 @@
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
-        <ProjectProperties HostName="PowerPoint" HostPackage="{29A7B9D7-A7F1-4328-8EF0-6B2D1A56B2C1}" OfficeVersion="15.0" VstxVersion="4.0" ApplicationType="PowerPoint" Language="cs" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\15.0\PowerPoint\InstallRoot\Path#powerpnt.exe" AddItemTemplatesGuid="{51063C3A-E220-4D12-8922-BDA915ACD783}" />
+        <ProjectProperties HostName="PowerPoint" HostPackage="{29A7B9D7-A7F1-4328-8EF0-6B2D1A56B2C1}" OfficeVersion="15.0" VstxVersion="4.0" ApplicationType="PowerPoint" Language="cs" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\16.0\PowerPoint\InstallRoot\Path#powerpnt.exe" AddItemTemplatesGuid="{51063C3A-E220-4D12-8922-BDA915ACD783}" />
         <Host Name="PowerPoint" GeneratedCodeNamespace="PowerPoint_Warrior" PublishedHash="69C324AB27932AA2FBF2B7EA72250886FF164DE6" IconIndex="0">
           <HostItem Name="ThisAddIn" Code="ThisAddIn.cs" CanonicalName="AddIn" PublishedHash="424601428E633E7AE2575A0507945BF890593E7C" CanActivate="false" IconIndex="1" Blueprint="ThisAddIn.Designer.xml" GeneratedCode="ThisAddIn.Designer.cs" />
         </Host>

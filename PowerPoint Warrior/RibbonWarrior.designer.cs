@@ -34,12 +34,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl1 = this.Factory.CreateRibbonDropDownItem();
             this.tabWarrior = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.galleryStyles = this.Factory.CreateRibbonGallery();
-            this.btnSaveStyle = this.Factory.CreateRibbonButton();
-            this.btnDeleteStyle = this.Factory.CreateRibbonButton();
             this.btnPasteFromExcel = this.Factory.CreateRibbonButton();
             this.toggleAutoFit = this.Factory.CreateRibbonToggleButton();
             this.toggleWordWrap = this.Factory.CreateRibbonToggleButton();
@@ -98,7 +94,6 @@
             // 
             // group1
             // 
-            this.group1.Items.Add(this.galleryStyles);
             this.group1.Items.Add(this.btnPasteFromExcel);
             this.group1.Items.Add(this.toggleAutoFit);
             this.group1.Items.Add(this.toggleWordWrap);
@@ -112,38 +107,6 @@
             this.group1.Items.Add(this.gallerySelectSimilar);
             this.group1.Label = "Tools and Formatting";
             this.group1.Name = "group1";
-            // 
-            // galleryStyles
-            // 
-            this.galleryStyles.Buttons.Add(this.btnSaveStyle);
-            this.galleryStyles.Buttons.Add(this.btnDeleteStyle);
-            this.galleryStyles.ColumnCount = 1;
-            this.galleryStyles.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            ribbonDropDownItemImpl1.Label = "(no styles)";
-            this.galleryStyles.Items.Add(ribbonDropDownItemImpl1);
-            this.galleryStyles.KeyTip = "S";
-            this.galleryStyles.Label = "Styles";
-            this.galleryStyles.Name = "galleryStyles";
-            this.galleryStyles.OfficeImageId = "ShapeStylesGallery";
-            this.galleryStyles.ShowImage = true;
-            this.galleryStyles.ButtonClick += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.galleryStyles_ButtonClick);
-            this.galleryStyles.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.galleryStyles_Click);
-            // 
-            // btnSaveStyle
-            // 
-            this.btnSaveStyle.Label = "Save current style";
-            this.btnSaveStyle.Name = "btnSaveStyle";
-            this.btnSaveStyle.OfficeImageId = "FileSave";
-            this.btnSaveStyle.ScreenTip = "Save style of selected shape";
-            this.btnSaveStyle.ShowImage = true;
-            this.btnSaveStyle.SuperTip = "You can both save as a new style or overwrite an existing style";
-            // 
-            // btnDeleteStyle
-            // 
-            this.btnDeleteStyle.Label = "Delete style";
-            this.btnDeleteStyle.Name = "btnDeleteStyle";
-            this.btnDeleteStyle.OfficeImageId = "Delete";
-            this.btnDeleteStyle.ShowImage = true;
             // 
             // btnPasteFromExcel
             // 
@@ -564,9 +527,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnFeedback;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton toggleAutoFit;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton toggleWordWrap;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGallery galleryStyles;
-        private Microsoft.Office.Tools.Ribbon.RibbonButton btnSaveStyle;
-        private Microsoft.Office.Tools.Ribbon.RibbonButton btnDeleteStyle;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnAbout;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnUpgrade;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnRemoveEffects;
