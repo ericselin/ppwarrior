@@ -35,10 +35,10 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>C:\Users\erics\OneDrive\Warrior\PowerPoint Warrior\</PublishUrl>
+    <PublishUrl>C:\Users\erics\Downloads\PowerPoint Warrior\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.3.1.24</ApplicationVersion>
+    <ApplicationVersion>1.3.1.25</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -221,10 +221,10 @@
       <DependentUpon>RibbonWarrior.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="PowerPoint Warrior_TemporaryKey.pfx" />
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="PowerPoint Warrior_TemporaryKey.pfx" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
     </None>
@@ -271,7 +271,7 @@
     <ManifestKeyFile>PowerPoint Warrior_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>3166F08C8708BB42AC02B7089E15B56CEEEC3EB0</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>B5A69E63564A86BEAB3AC342C9895FABBDCB9D34</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
